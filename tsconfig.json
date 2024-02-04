@@ -22,8 +22,11 @@
       }
     ],
     "paths": {
-      "@/": [
+      "@/*": [
         "./src/*"
+      ],
+      "shadcn/utils": [
+        "./src/lib/utils.ts"
       ]
     }
   },
