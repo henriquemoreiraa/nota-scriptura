@@ -1,4 +1,6 @@
-function Google(props: React.ComponentProps<"svg">) {
+import { ComponentProps } from "react";
+
+function Google(props: ComponentProps<"svg">) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
