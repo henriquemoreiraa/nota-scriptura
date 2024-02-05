@@ -1,5 +1,7 @@
 import Reading from "@/components/illustrations/reading";
 import AuthGoogle from "./components/auth-google";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function Home() {
   return (
@@ -13,8 +15,16 @@ export default function Home() {
           Criada para facilitar suas anotações bíblicas.
         </p>
       </div>
-      <AuthGoogle />
-      <Reading className="w-[450px] h-auto mt-12" />
+      <div className="flex gap-5 items-center">
+        <AuthGoogle />
+        <Link
+          href="#"
+          className="flex items-center gap-1 font-normal text-link hover:underline hover:text-link-hover"
+        >
+          Quero apenas ler <ArrowRight className="size-4" />
+        </Link>
+      </div>
+      <Reading className="max-w-[450px] w-full h-auto mt-12" />
     </div>
   );
 }
