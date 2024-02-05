@@ -20,9 +20,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`w-full flex flex-col justify-center items-center h-screen ${inter.className}`}
+      className={`w-full flex flex-col justify-center items-center xl:h-screen ${inter.className}`}
     >
-      <body className="flex flex-col max-w-screen-xl w-full h-full justify-center items-center">
+      <body className="flex flex-col max-w-screen-xl xl:h-full w-full  justify-center items-center">
         <AuthProvider>
           <NavBar />
           <main className="flex-1 p-3">{children}</main>

@@ -9,7 +9,7 @@ function AuthGoogle() {
 
   return (
     <>
-      {session?.user?.email}
+      {/* {session?.user?.email} */}
       <Button className="flex gap-2 bg-blue-500" onClick={() => signIn()}>
         <div className="bg-white p-1 rounded-full">
           <Google className="size-5" />
