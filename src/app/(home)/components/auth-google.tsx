@@ -5,12 +5,16 @@ import { Button } from "@/components/ui/button";
 import { useSession, signIn } from "next-auth/react";
 
 function AuthGoogle() {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
   return (
     <>
       {/* {session?.user?.email} */}
-      <Button className="flex gap-2" onClick={() => signIn()}>
+      <Button
+        className="flex gap-2"
+        type="submit"
+        onClick={() => signIn("google", { callbackUrl: "/notion" })}
+      >
         <div className="bg-white p-1 rounded-full">
           <Google className="size-5" />
         </div>
