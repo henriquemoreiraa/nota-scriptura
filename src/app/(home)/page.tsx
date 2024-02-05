@@ -1,5 +1,4 @@
-import Google from "@/components/icons/google";
-import { Button } from "@/components/ui/button";
+import AuthGoogle from "./components/auth-google";
 
 export default function Home() {
   return (
@@ -13,12 +12,7 @@ export default function Home() {
           suas anotações.
         </p>
       </div>
-      <Button className="flex gap-2">
-        <div className="bg-white p-1 rounded-full">
-          <Google className="size-5" />
-        </div>
-        Continuar com o Google
-      </Button>
+      <AuthGoogle />
     </div>
   );
 }
