@@ -1,6 +1,6 @@
 import { ComponentProps } from "react";
 
-function Google(props: ComponentProps<"svg">) {
+function GoogleIcon(props: ComponentProps<"svg">) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -31,4 +31,4 @@ function Google(props: ComponentProps<"svg">) {
   );
 }
 
-export default Google;
+export default GoogleIcon;

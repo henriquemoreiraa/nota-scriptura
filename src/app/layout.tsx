@@ -4,6 +4,7 @@ import Footer from "@/components/footer";
 import { Inter } from "next/font/google";
 import NavBar from "@/components/navbar";
 import AuthProvider from "@/provider/auth";
+import ReactQueryProvider from "@/provider/react-query";
 
 export const metadata: Metadata = {
   title: "Nota Scriptura",
@@ -23,11 +24,13 @@ export default function RootLayout({
       className={`w-full flex flex-col justify-center items-center xl:h-screen ${inter.className}`}
     >
       <body className="flex flex-col max-w-screen-xl xl:h-full w-full items-center">
-        <AuthProvider>
-          <NavBar />
-          <main className="flex-1 p-3">{children}</main>
-          <Footer />
-        </AuthProvider>
+        <ReactQueryProvider>
+          <AuthProvider>
+            <NavBar />
+            <main className="flex-1 p-3">{children}</main>
+            <Footer />
+          </AuthProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

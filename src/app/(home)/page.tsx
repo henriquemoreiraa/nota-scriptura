@@ -2,8 +2,21 @@ import Reading from "@/components/illustrations/reading";
 import AuthGoogle from "./components/auth-google";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default function Home() {
+  const nextAuthToken = cookies().get("next-auth.session-token");
+
+  if (nextAuthToken) {
+    const notionToken = cookies().get("notion-token");
+
+    if (notionToken) {
+      redirect("/ler");
+    }
+    redirect("/integrar-notion");
+  }
+
   return (
     <div className="flex flex-col items-center">
       <div className="mb-10">
