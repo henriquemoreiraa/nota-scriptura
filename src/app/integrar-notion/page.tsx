@@ -4,28 +4,29 @@ import NotionIcon from "@/components/icons/notion";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+
+interface SearchParamsProp {
+  searchParams: { [key: string]: string | undefined };
+}
 
 const getNotionAccessToken = async (
-  code: string | null,
-  router: AppRouterInstance
+  router: AppRouterInstance,
+  code?: string
 ) => {
   if (code) {
-    await fetch(
-      `${process.env.NEXTAUTH_URL}api/notion/get-access-token/?code=${code}`
-    );
+    await fetch(`/api/notion/get-access-token/?code=${code}`);
     router.push("/ler");
   }
   return null;
 };
 
-function Page() {
-  const code = useSearchParams().get("code");
+function Page({ searchParams }: SearchParamsProp) {
   const router = useRouter();
 
   const { status } = useQuery({
     queryKey: ["notion-token-data"],
-    queryFn: () => getNotionAccessToken(code, router),
+    queryFn: () => getNotionAccessToken(router, searchParams.code),
   });
 
   if (status === "error") {
