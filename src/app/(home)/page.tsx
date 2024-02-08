@@ -18,7 +18,7 @@ export default function Home() {
           Criada para facilitar suas anotações bíblicas.
         </p>
       </div>
-      <div className="flex gap-5 items-center">
+      <div className="flex flex-col sm:flex-row gap-5 items-center">
         <Suspense fallback={<NotionIntegrationPlaceHolder />}>
           <NotionIntegration />
         </Suspense>

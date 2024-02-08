@@ -7,7 +7,8 @@ import ReactQueryProvider from "@/provider/react-query";
 
 export const metadata: Metadata = {
   title: "Nota Scriptura",
-  description: "",
+  description:
+    "Nota Scriptura é uma Bíblia online integrada com o Notion. Criada para facilitar suas anotações bíblicas.",
 };
 
 const inter = Inter({ subsets: ["latin"] });
