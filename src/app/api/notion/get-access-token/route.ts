@@ -7,12 +7,10 @@ export async function GET(request: NextRequest) {
   //TODO: req notion with tmp code
   //TODO: res -> set access token as cookie
 
-  cookies().set("notion-token", `access-token-example`, {
+  cookies().set("notion-access-token", `access-token-example`, {
     httpOnly: true,
     secure: true,
   });
-
-  cookies().set("notion-token-exists", "true");
 
   return new Response("Token set successfully", {
     status: 200,
