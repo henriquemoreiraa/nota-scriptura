@@ -1,22 +1,12 @@
 import Reading from "@/components/illustrations/reading";
-import AuthGoogle from "./components/auth-google";
+import NotionIntegration, {
+  NotionIntegrationPlaceHolder,
+} from "./components/notion-integration";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 export default function Home() {
-  const nextAuthToken = cookies().get("next-auth.session-token");
-
-  if (nextAuthToken) {
-    const notionToken = cookies().get("notion-token");
-
-    if (notionToken) {
-      redirect("/ler");
-    }
-    redirect("/integrar-notion");
-  }
-
   return (
     <div className="flex flex-col items-center">
       <div className="mb-10">
@@ -29,9 +19,11 @@ export default function Home() {
         </p>
       </div>
       <div className="flex gap-5 items-center">
-        <AuthGoogle />
+        <Suspense fallback={<NotionIntegrationPlaceHolder />}>
+          <NotionIntegration />
+        </Suspense>
         <Link
-          href="#"
+          href="/ler"
           className="flex items-center gap-1 font-normal text-link hover:underline hover:text-link-hover"
         >
           Quero apenas ler <ArrowRight className="size-4" />

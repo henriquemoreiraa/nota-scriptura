@@ -3,7 +3,6 @@ import "./globals.css";
 import Footer from "@/components/footer";
 import { Inter } from "next/font/google";
 import NavBar from "@/components/navbar";
-import AuthProvider from "@/provider/auth";
 import ReactQueryProvider from "@/provider/react-query";
 
 export const metadata: Metadata = {
@@ -25,11 +24,9 @@ export default function RootLayout({
     >
       <body className="flex flex-col max-w-screen-xl xl:h-full w-full items-center">
         <ReactQueryProvider>
-          <AuthProvider>
-            <NavBar />
-            <main className="flex-1 p-3">{children}</main>
-            <Footer />
-          </AuthProvider>
+          <NavBar />
+          <main className="flex-1 p-3">{children}</main>
+          <Footer />
         </ReactQueryProvider>
       </body>
     </html>

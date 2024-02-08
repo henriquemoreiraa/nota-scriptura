@@ -12,6 +12,8 @@ export async function GET(request: NextRequest) {
     secure: true,
   });
 
+  cookies().set("notion-token-exists", "true");
+
   return new Response("Token set successfully", {
     status: 200,
   });
