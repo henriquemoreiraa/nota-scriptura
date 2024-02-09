@@ -12,7 +12,7 @@ const getNotionAccessToken = async (
   router: AppRouterInstance,
   code: string | null
 ) => {
-  const response = await fetch(`/api/notion/get-access-token/?code=${code}`);
+  const response = await fetch(`/api/notion/access-token/?code=${code}`);
   if (response.status === 200) {
     router.push("/ler");
     return response;

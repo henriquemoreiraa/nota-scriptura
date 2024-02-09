@@ -18,7 +18,7 @@ export default function Home({ searchParams }: SearchParamsProp) {
         </h1>
         <p className="text-lg text-center md:text-2xl font-medium">
           Nota Scriptura é uma Bíblia online integrada com o Notion. <br />
-          Criada para facilitar suas ano tações bíblicas.
+          Criada para facilitar suas anotações bíblicas.
         </p>
       </div>
       <div className="flex flex-col sm:flex-row gap-5 items-center">
