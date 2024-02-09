@@ -4,6 +4,7 @@ import Footer from "@/components/footer";
 import { Inter } from "next/font/google";
 import NavBar from "@/components/navbar";
 import ReactQueryProvider from "@/provider/react-query";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Nota Scriptura",
@@ -27,6 +28,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           <NavBar />
           <main className="flex-1 p-3">{children}</main>
+          <Toaster />
           <Footer />
         </ReactQueryProvider>
       </body>
