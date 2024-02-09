@@ -4,7 +4,7 @@ import { Loader2 } from "lucide-react";
 
 export const NotionLink = () => {
   return (
-    <LinkButton href="/ler" className="flex gap-2">
+    <LinkButton data-testid="notion-link" href="/ler" className="flex gap-2">
       <div className="bg-white p-1 rounded-full">
         <NotionIcon className="size-5" />
       </div>
@@ -15,7 +15,11 @@ export const NotionLink = () => {
 
 export function NotionLinkPlaceHolder() {
   return (
-    <LinkButton aria-disabled className="flex gap-2 relative">
+    <LinkButton
+      data-testid="notion-link-placeholder"
+      aria-disabled
+      className="flex gap-2 relative"
+    >
       <Loader2 className="size-4 animate-spin" />
       Integrar com o Notion
     </LinkButton>
