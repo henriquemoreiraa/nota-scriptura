@@ -28,7 +28,6 @@ export const NotionIntegration = () => {
   const { status } = useQuery({
     queryKey: ["notion-token-data"],
     queryFn: () => getNotionAccessToken(router, code),
-    retry: 2,
   });
 
   const toastConfig = useMemo(
