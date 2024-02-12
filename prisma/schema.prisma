@@ -11,12 +11,10 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model UserNotion {
-  email                   String  @id 
-  access_token            String 
-  bot_id                  String 
-  duplicated_template_id  String 
-  workspace_id            String 
-  workspace_name          String
-  workspace_icon          String
+model Session {
+  bot_id                  String  @id 
+  access_token            String  @unique
+  duplicated_template_id  String  @unique
+  workspace_id            String  @unique
+  user_id                 String  @unique
 }

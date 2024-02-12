@@ -3,8 +3,10 @@ import { LinkButton } from "@/components/ui/link-button";
 import { Loader2 } from "lucide-react";
 
 export const NotionLink = () => {
+  const authUrl = process.env.NOTION_AUTH_URL;
+
   return (
-    <LinkButton data-testid="notion-link" href="/ler" className="flex gap-2">
+    <LinkButton data-testid="notion-link" href={authUrl} className="flex gap-2">
       <div className="bg-white p-1 rounded-full">
         <NotionIcon className="size-5" />
       </div>
