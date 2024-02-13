@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/components/footer";
 import { Inter } from "next/font/google";
-import NavBar from "@/components/navbar";
 import ReactQueryProvider from "@/provider/react-query";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -26,8 +25,7 @@ export default function RootLayout({
     >
       <body className="flex flex-col max-w-screen-xl xl:h-full w-full items-center">
         <ReactQueryProvider>
-          <NavBar />
-          <main className="flex-1 p-3">{children}</main>
+          <div className="flex-1 p-3 w-full">{children}</div>
           <Toaster />
           <Footer />
         </ReactQueryProvider>

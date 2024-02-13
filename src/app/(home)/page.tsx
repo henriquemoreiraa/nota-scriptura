@@ -8,10 +8,15 @@ import {
   NotionLink,
   NotionLinkPlaceHolder,
 } from "./components/notion/notion-link";
+import NavBar from "@/components/navbar";
+import Logo from "@/components/icons/logo";
 
 export default function Home({ searchParams }: SearchParamsProp) {
   return (
-    <div className="flex flex-col items-center">
+    <main className="flex flex-col items-center">
+      <NavBar>
+        <Logo className="size-32 h-auto" />
+      </NavBar>
       <div className="mb-10">
         <h1 className="text-center text-5xl sm sm:text-7xl font-semibold tracking-tight mb-2">
           Leia, anote e estude <br /> a palavra
@@ -37,6 +42,6 @@ export default function Home({ searchParams }: SearchParamsProp) {
         </Link>
       </div>
       <Reading className="max-w-[450px] w-full h-auto mt-12" />
-    </div>
+    </main>
   );
 }
