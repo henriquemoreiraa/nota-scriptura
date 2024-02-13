@@ -1,5 +1,7 @@
-import { LinkButton } from "@/components/ui/link-button";
 import { Dices, Pointer, TreeDeciduous } from "lucide-react";
+import ChooseBookDialog from "./choose-book-dialog";
+import { Button } from "@/components/ui/button";
+import { ReactNode } from "react";
 
 const BookChoiceOptions = () => {
   const options = [
@@ -10,7 +12,9 @@ const BookChoiceOptions = () => {
         "Prepare-se para voltar às origens! Pressione este botão para começar sua jornada bíblica desde o início dos tempos, onde tudo começou. Do Éden às grandes histórias de fé, o Gênesis é o ponto de partida para uma aventura espiritual inesquecível!",
       button: {
         title: "Começo",
-        link: "/",
+        dialog: (children: ReactNode) => (
+          <ChooseBookDialog>{children}</ChooseBookDialog>
+        ),
       },
     },
     {
@@ -20,7 +24,9 @@ const BookChoiceOptions = () => {
         "Seletor de livros ativado! Escolha sabiamente, como se estivesse escolhendo seu próximo livro de cabeceira. Navegue, explore e selecione o livro que mais combina com o seu humor espiritual, curiosidade bíblica ou oque você sentir certo!",
       button: {
         title: "Escolher",
-        link: "/",
+        dialog: (children: ReactNode) => (
+          <ChooseBookDialog>{children}</ChooseBookDialog>
+        ),
       },
     },
     {
@@ -30,7 +36,9 @@ const BookChoiceOptions = () => {
         "Vamos adicionar um pouco de emoção bíblica à sua vida! Pressione o botão 'Aleatório' e deixe a sorte (ou providência divina?) decidir qual parte da Bíblia você irá explorar hoje. Quem sabe que tesouros espirituais você encontrará nesta aventura aleatória!",
       button: {
         title: "Aleatório",
-        link: "/",
+        dialog: (children: ReactNode) => (
+          <ChooseBookDialog>{children}</ChooseBookDialog>
+        ),
       },
     },
   ];
@@ -45,13 +53,15 @@ const BookChoiceOptions = () => {
         <h2 className="font-bold text-lg mb-3">{option.title}</h2>
         <p className="text-sm text-zinc-600">{option.description}</p>
       </div>
-      <LinkButton
-        href={option.button.link}
-        variant="secondary"
-        className="w-full group-hover:bg-blue-500 group-hover:text-white group-hover:font-semibold transition-all duration-200"
-      >
-        {option.button.title}
-      </LinkButton>
+
+      {option.button.dialog(
+        <Button
+          variant="secondary"
+          className="w-full group-hover:bg-blue-500 group-hover:text-white group-hover:font-semibold transition-all duration-200"
+        >
+          {option.button.title}
+        </Button>
+      )}
     </div>
   ));
 };

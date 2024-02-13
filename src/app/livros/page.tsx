@@ -7,13 +7,13 @@ function Page() {
   return (
     <main>
       <NavBar className="justify-end">
-        <Avatar>
+        <Avatar className="size-9">
           <AvatarImage
             src="https://github.com/henriquemoreiraa.png"
             alt="henriquemoreiraa"
           />
           <AvatarFallback className="bg-transparent">
-            <Skeleton className="h-12 w-12 rounded-full " />
+            <Skeleton className="h-full w-full rounded-full " />
           </AvatarFallback>
         </Avatar>
       </NavBar>
