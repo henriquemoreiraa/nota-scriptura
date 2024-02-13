@@ -7,18 +7,23 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import { NotionLink, NotionLinkPlaceHolder } from "./notion-link";
+import axios, { AxiosError } from "axios";
 
 const getNotionAccessToken = async (
   router: AppRouterInstance,
   code: string | null
 ) => {
-  const response = await fetch(`/api/notion/access-token/?code=${code}`);
-  if (response.status === 200) {
+  try {
+    const response = await axios.get(`/api/notion/access-token/?code=${code}`);
     router.push("/ler");
-    return response;
-  }
 
-  throw new Error("Could not set access token!");
+    return response;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(error.message);
+    }
+    throw new Error("Something went wrong!");
+  }
 };
 
 export const NotionIntegration = () => {
