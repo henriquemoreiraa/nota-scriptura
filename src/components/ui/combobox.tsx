@@ -25,14 +25,14 @@ interface ComboboxProps {
   }[];
   name: string;
   multiple?: boolean;
-  compare?: "values" | "label";
+  compare?: "value" | "label";
 }
 
 export const Combobox = ({
   data,
   name,
   multiple,
-  compare = "values",
+  compare = "value",
 }: ComboboxProps) => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState<string[]>([]);
@@ -43,7 +43,11 @@ export const Combobox = ({
         return (
           <div className="flex flex-wrap gap-3">
             {values.map((label) => (
-              <div key={label} className="bg-zinc-100 px-2 py-1 rounded-sm">
+              <div
+                key={label}
+                data-testid="multiple-div"
+                className="bg-zinc-100 px-2 py-1 rounded-sm"
+              >
                 {label}
               </div>
             ))}
@@ -60,9 +64,9 @@ export const Combobox = ({
       const valueExists = values.find((value) => value === currentValue);
 
       if (valueExists) {
-        setValues((prevValues) => [
-          ...prevValues.filter((value) => value !== currentValue),
-        ]);
+        setValues((prevValues) =>
+          prevValues.filter((value) => value !== currentValue)
+        );
       } else {
         setValues((prevValues) => [...prevValues, currentValue]);
       }
@@ -81,6 +85,7 @@ export const Combobox = ({
           role="combobox"
           aria-expanded={open}
           className="justify-between w-full h-max"
+          data-testid="combobox-btn"
         >
           {renderSelectedValue()}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -96,7 +101,7 @@ export const Combobox = ({
                 key={d.value}
                 value={d.value}
                 onSelect={(value) =>
-                  onSelect(compare === "values" ? value : d.label)
+                  onSelect(compare === "value" ? value : d.label)
                 }
               >
                 <Check
