@@ -1,15 +1,26 @@
+"use client";
 import { Combobox } from "@/components/ui/combobox";
 import { SeparatorTitle } from "@/components/ui/separator-title";
 import { filterOptions } from "./constants";
+import { useBooksContext } from "@/context/book-context";
 
 const BookFilters = () => {
+  const { bookFilters } = useBooksContext();
+
   return filterOptions.map((option) => (
-    <div key={option.name}>
+    <div>
       <SeparatorTitle className="mb-1">{option.name}</SeparatorTitle>
       <Combobox
+        key={option.key}
         data={option.filters}
         name={option.name}
-        compare="label"
+        compare={option.compare as "value" | "label"}
+        onSelect={(values) => {
+          bookFilters.current = {
+            ...bookFilters.current,
+            [option.key]: values,
+          };
+        }}
         multiple
       />
     </div>

@@ -18,3 +18,13 @@ model Session {
   workspace_id            String  @unique
   user_id                 String  @unique
 }
+
+model Book {
+  id        Int   @id @default(autoincrement())
+  abbrev    Json
+  author    String
+  chapters  Int
+  group     String
+  name      String
+  testament String
+}
