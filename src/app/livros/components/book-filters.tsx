@@ -9,7 +9,7 @@ const BookFilters = () => {
 
   return filterOptions.map((option) => (
     <div>
-      <SeparatorTitle className="mb-1">{option.name}</SeparatorTitle>
+      <SeparatorTitle>{option.name}</SeparatorTitle>
       <Combobox
         key={option.key}
         data={option.filters}

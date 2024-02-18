@@ -3,6 +3,7 @@ import ChooseBookDialog from "./choose-book-dialog";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { BookContextProvider } from "@/context/book-context";
+import DialogOverlayCustom from "@/components/ui/dialog-overlay-custom";
 
 const BookChoiceOptions = () => {
   const options = [
@@ -58,7 +59,7 @@ const BookChoiceOptions = () => {
               {option.button.title}
             </Button>
           </DialogTrigger>
-          {option.button.dialog}
+          <DialogOverlayCustom>{option.button.dialog}</DialogOverlayCustom>
         </Dialog>
       </BookContextProvider>
     </div>

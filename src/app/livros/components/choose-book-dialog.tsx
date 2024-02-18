@@ -8,7 +8,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogOverlay,
 } from "@/components/ui/dialog";
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -16,12 +15,13 @@ import BookFilters from "./book-filters";
 import { SeparatorTitle } from "@/components/ui/separator-title";
 import { useBooksContext } from "@/context/book-context";
 import { createOptions } from "@/utils/create-options";
+import DialogOverlayCustom from "@/components/ui/dialog-overlay-custom";
 
 const ChooseBookDialog = () => {
   const { getBooksFn, books } = useBooksContext();
 
   return (
-    <DialogContent className="max-w-[600px]">
+    <DialogContent className="max-w-[600px] max-h-full overflow-y-auto">
       <DialogHeader>
         <DialogTitle>Selecione um livro abaixo</DialogTitle>
         <DialogDescription>
@@ -33,24 +33,27 @@ const ChooseBookDialog = () => {
           <TabsTrigger value="account">Sem filtro</TabsTrigger>
           <TabsTrigger value="password">Com filtro</TabsTrigger>
         </TabsList>
-        <TabsContent value="account">
-          <Combobox name="livro" data={[{ label: "livro", value: "livro" }]} />
-        </TabsContent>
         <TabsContent
           value="password"
           className="flex flex-col justify-center items-center"
         >
-          <DialogOverlay className="relative z-0 bg-transparent w-full flex flex-col gap-3 mb-10 v">
-            <BookFilters />
-          </DialogOverlay>
-          <SeparatorTitle className="mb-1">Livro</SeparatorTitle>
+          <div className="w-full mb-8">
+            <DialogOverlayCustom>
+              <BookFilters />
+            </DialogOverlayCustom>
+          </div>
+        </TabsContent>
+      </Tabs>
+      <div>
+        <SeparatorTitle>Livro</SeparatorTitle>
+        <DialogOverlayCustom>
           <Combobox
             name="livro"
             data={createOptions({ arr: books })}
             onFocus={getBooksFn}
           />
-        </TabsContent>
-      </Tabs>
+        </DialogOverlayCustom>
+      </div>
       <DialogFooter>
         <Button variant="blue" disabled>
           Confirmar

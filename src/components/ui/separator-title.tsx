@@ -11,7 +11,7 @@ export const SeparatorTitle = ({
   return (
     <h2
       className={twMerge(
-        "w-full flex items-center gap-5 font-medium text-sm after:w-full after:border-t after:border-zinc-200 after:box-content after:inline-flex",
+        "w-full flex items-center gap-5 font-medium text-sm after:w-full after:border-t after:border-zinc-200 after:box-content after:inline-flex mb-1",
         className
       )}
       {...props}
