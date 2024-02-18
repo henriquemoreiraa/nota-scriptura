@@ -2,6 +2,7 @@ import { Dices, Pointer, TreeDeciduous } from "lucide-react";
 import ChooseBookDialog from "./choose-book-dialog";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { BookContextProvider } from "@/context/book-context";
 
 const BookChoiceOptions = () => {
   const options = [
@@ -47,17 +48,19 @@ const BookChoiceOptions = () => {
         <h2 className="font-bold text-lg mb-3">{option.title}</h2>
         <p className="text-sm text-zinc-600">{option.description}</p>
       </div>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button
-            variant="secondary"
-            className="w-full group-hover:bg-blue-500 group-hover:text-white group-hover:font-semibold transition-all duration-200"
-          >
-            {option.button.title}
-          </Button>
-        </DialogTrigger>
-        {option.button.dialog}
-      </Dialog>
+      <BookContextProvider>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              variant="secondary"
+              className="w-full group-hover:bg-blue-500 group-hover:text-white group-hover:font-semibold transition-all duration-200"
+            >
+              {option.button.title}
+            </Button>
+          </DialogTrigger>
+          {option.button.dialog}
+        </Dialog>
+      </BookContextProvider>
     </div>
   ));
 };

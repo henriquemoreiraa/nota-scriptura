@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Combobox } from "@/components/ui/combobox";
 import {
@@ -12,8 +14,12 @@ import {
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import BookFilters from "./book-filters";
 import { SeparatorTitle } from "@/components/ui/separator-title";
+import { useBooksContext } from "@/context/book-context";
+import { createOptions } from "@/utils/create-options";
 
 const ChooseBookDialog = () => {
+  const { getBooksFn, books } = useBooksContext();
+
   return (
     <DialogContent className="max-w-[600px]">
       <DialogHeader>
@@ -38,7 +44,11 @@ const ChooseBookDialog = () => {
             <BookFilters />
           </DialogOverlay>
           <SeparatorTitle className="mb-1">Livro</SeparatorTitle>
-          <Combobox name="livro" data={[{ label: "livro", value: "livro" }]} />
+          <Combobox
+            name="livro"
+            data={createOptions({ arr: books })}
+            onFocus={getBooksFn}
+          />
         </TabsContent>
       </Tabs>
       <DialogFooter>
