@@ -37,10 +37,10 @@ export function BookContextProvider({ children }: { children: ReactNode }) {
   const getBooks = async () => {
     const { data } = await axios.get(`/api/books/`, {
       params: {
-        author: bookFilters.current?.author?.join(",") ?? undefined,
+        author: bookFilters.current?.author?.join(",") || undefined,
         testament:
-          bookFilters.current?.testament?.join(",").toUpperCase() ?? undefined,
-        group: bookFilters.current?.group?.join(",") ?? undefined,
+          bookFilters.current?.testament?.join(",").toUpperCase() || undefined,
+        group: bookFilters.current?.group?.join(",") || undefined,
       },
     });
     return data;

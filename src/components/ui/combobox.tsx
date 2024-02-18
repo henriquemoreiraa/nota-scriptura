@@ -77,7 +77,7 @@ export const Combobox = ({
       if (valueExists) {
         newValues = values.filter((value) => value !== currentValue);
       } else {
-        newValues = [...values, currentValue];
+        newValues = multiple ? [...values, currentValue] : [currentValue];
       }
 
       setValues(newValues);
