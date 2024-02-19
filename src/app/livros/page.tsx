@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 function Page() {
   return (
-    <main>
+    <>
       <NavBar className="justify-end">
         <Avatar className="size-9">
           <AvatarImage
@@ -17,16 +17,18 @@ function Page() {
           </AvatarFallback>
         </Avatar>
       </NavBar>
-      <h1 className="text-center text-2xl font-bold">
-        Seja bem-vindo, Henrique
-      </h1>
-      <p className="text-center mb-8">
-        Antes de iniciar, vamos começar escolhendo um livro.
-      </p>
-      <div className="flex flex-row flex-wrap justify-center gap-8">
-        <BookChoiceOptions />
-      </div>
-    </main>
+      <main>
+        <h1 className="text-center text-2xl font-bold">
+          Seja bem-vindo, Henrique
+        </h1>
+        <p className="text-center mb-8">
+          Antes de iniciar, vamos começar escolhendo um livro.
+        </p>
+        <div className="flex flex-row flex-wrap justify-center gap-8">
+          <BookChoiceOptions />
+        </div>
+      </main>
+    </>
   );
 }
 

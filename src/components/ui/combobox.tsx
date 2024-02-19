@@ -125,13 +125,11 @@ export const Combobox = ({
                   }
                 >
                   <Check
+                    data-value={values.find(
+                      (value) => value === (compareValue ? d.value : d.label)
+                    )}
                     className={cn(
-                      "mr-2 h-4 w-4",
-                      values.find(
-                        (value) => value === (compareValue ? d.value : d.label)
-                      )
-                        ? "opacity-100"
-                        : "opacity-0"
+                      "mr-2 h-4 w-4 opacity-0 data-[value]:opacity-100"
                     )}
                   />
                   {d.label}
