@@ -3,7 +3,7 @@
 </p>
 
 <p align="center"> 
-  Nota Scriptura, uma Bíblia online integrada com o Notion, visando facilitar as anotações do leitor.  
+  Nota Scriptura, an online Bible integrated with Notion, aiming to make it easier for the reader to take notes.
 </p>
 
 <h4 align="center"> 
