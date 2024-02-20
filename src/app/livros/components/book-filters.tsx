@@ -12,13 +12,15 @@ const BookFilters = () => {
       <SeparatorTitle>{option.name}</SeparatorTitle>
       <Combobox
         key={option.key}
-        data={option.filters}
+        options={option.filters}
         name={option.name}
-        compare={option.compare as "value" | "label"}
-        onSelect={(values) => {
+        onSelect={(values, valuesObj) => {
           bookFilters.current = {
             ...bookFilters.current,
-            [option.key]: values,
+            [option.key]:
+              option.key === "testament"
+                ? values
+                : valuesObj.map((option) => option.label),
           };
         }}
         multiple

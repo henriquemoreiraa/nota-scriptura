@@ -1,5 +1,5 @@
 import { Dices, Pointer, TreeDeciduous } from "lucide-react";
-import ChooseBookDialog from "./choose-book-dialog";
+import ChooseBookDialog from "./dialog/choose-book-dialog";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { BookContextProvider } from "@/context/book-context";

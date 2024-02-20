@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import BookFilters from "./book-filters";
+import BookFilters from "../book-filters";
 import { SeparatorTitle } from "@/components/ui/separator-title";
 import { useBooksContext } from "@/context/book-context";
 import { createOptions } from "@/utils/create-options";
@@ -49,9 +49,10 @@ const ChooseBookDialog = () => {
         <DialogOverlayCustom>
           <Combobox
             name="livro"
-            data={createOptions({ arr: books })}
+            options={createOptions({ arr: books })}
             onFocus={getBooksFn}
           />
+          s
         </DialogOverlayCustom>
       </div>
       <DialogFooter>

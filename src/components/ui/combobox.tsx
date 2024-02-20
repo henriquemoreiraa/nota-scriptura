@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -18,78 +18,87 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
+type Options = {
+  value: string | number;
+  label: string;
+}[];
+
 interface ComboboxProps {
-  data?: {
-    value: string;
-    label: string;
-  }[];
+  options?: Options;
   name: string;
   multiple?: boolean;
-  compare?: "value" | "label";
-  onSelect?: (values: string[]) => void;
+  onSelect?: (values: string[], valuesObj: Options) => void;
   onFocus?: () => void;
 }
 
 export const Combobox = ({
-  data,
+  options,
   name,
   multiple,
-  compare = "value",
   onSelect,
   onFocus,
 }: ComboboxProps) => {
   const [open, setOpen] = useState(false);
-  const [values, setValues] = useState<string[]>([]);
-
-  const compareValue = compare === "value";
+  const [selectedOptions, setSelectedOptions] = useState<Options>([]);
 
   const renderSelectedValue = useMemo(() => {
     return () => {
-      if (values.length && multiple) {
+      if (selectedOptions.length && multiple) {
         return (
           <div className="flex flex-wrap gap-3">
-            {values.map((value) => (
+            {selectedOptions.map((option) => (
               <div
-                key={value}
+                key={option.value}
                 data-testid="multiple-div"
                 className="bg-zinc-100 px-2 py-1 rounded-sm"
               >
-                {
-                  data?.find(
-                    (v) => (compareValue ? v.value : v.label) === value
-                  )?.label
-                }
+                {option.label}
               </div>
             ))}
           </div>
         );
       }
 
-      return values[0] || `Selecione um ${name.toLowerCase()}`;
+      return selectedOptions[0]?.label || `Selecione um ${name.toLowerCase()}`;
     };
-  }, [values]);
+  }, [selectedOptions]);
 
   const onSelectValue = useMemo(() => {
     return (currentValue: string) => {
-      const valueExists = values.find((value) => value === currentValue);
-      let newValues = [];
+      const valueExists = selectedOptions.find(
+        (option) => option.value.toString() === currentValue
+      );
+      const selectedOption = options?.find(
+        (option) => option.value.toString() === currentValue
+      );
+
+      let newSelectedOptions: Options = [];
 
       if (valueExists) {
-        newValues = values.filter((value) => value !== currentValue);
+        newSelectedOptions = selectedOptions.filter(
+          (option) => option.value.toString() !== currentValue
+        );
       } else {
-        newValues = multiple ? [...values, currentValue] : [currentValue];
+        if (selectedOption) {
+          newSelectedOptions = multiple
+            ? [...selectedOptions, selectedOption]
+            : [selectedOption];
+        }
       }
 
-      setValues(newValues);
+      setSelectedOptions(newSelectedOptions);
       if (onSelect) {
-        onSelect(newValues);
+        onSelect(
+          newSelectedOptions.map((option) => option.value.toString()),
+          newSelectedOptions
+        );
       }
 
       if (!multiple) {
         setOpen(false);
       }
     };
-  }, [values]);
+  }, [selectedOptions, options]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -111,22 +120,21 @@ export const Combobox = ({
           <CommandInput placeholder={`Pesquise um ${name.toLowerCase()}`} />
           <CommandEmpty>Nenhum {name.toLowerCase()} encontrado.</CommandEmpty>
           <CommandGroup className="overflow-y-auto">
-            {!data ? (
+            {!options ? (
               <div className="flex justify-center items-center p-5">
                 <Loader2 className="size-4 animate-spin text-zinc-400" />
               </div>
             ) : (
-              data.map((d) => (
+              options.map((d) => (
                 <CommandItem
+                  data-testid={d.value}
                   key={d.value}
-                  value={d.value}
-                  onSelect={(value) =>
-                    onSelectValue(compareValue ? value : d.label)
-                  }
+                  value={d.value.toString()}
+                  onSelect={onSelectValue}
                 >
                   <Check
-                    data-value={values.find(
-                      (value) => value === (compareValue ? d.value : d.label)
+                    data-value={selectedOptions.find(
+                      (option) => option.value === d.value
                     )}
                     className={cn(
                       "mr-2 h-4 w-4 opacity-0 data-[value]:opacity-100"

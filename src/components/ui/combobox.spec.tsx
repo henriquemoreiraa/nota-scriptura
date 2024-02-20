@@ -5,7 +5,6 @@ import userEvent from "@testing-library/user-event";
 
 interface ComboboxTestProps {
   multiple?: boolean;
-  compare?: "value" | "label";
 }
 
 describe("Combobox", () => {
@@ -14,7 +13,7 @@ describe("Combobox", () => {
   const renderCombobox = (props?: ComboboxTestProps) => {
     return render(
       <Combobox
-        data={[
+        options={[
           { value: "test_value", label: "Test Label" },
           { value: "test_value_2", label: "Test Label 2" },
         ]}
@@ -40,18 +39,10 @@ describe("Combobox", () => {
     expect(screen.getByText("Test Label 2"));
   });
 
-  it("should render value when option is clicked", async () => {
+  it("should render label when option is clicked", async () => {
     renderCombobox();
     await user.click(screen.getByTestId("combobox-btn"));
-    await user.click(screen.getByText("Test Label"));
-
-    expect(screen.getByTestId("combobox-btn")).toHaveTextContent("test_value");
-  });
-
-  it("should render label when option is clicked", async () => {
-    renderCombobox({ compare: "label" });
-    await user.click(screen.getByTestId("combobox-btn"));
-    await user.click(screen.getByText("Test Label"));
+    await user.click(screen.getByTestId("test_value"));
 
     expect(screen.getByTestId("combobox-btn")).toHaveTextContent("Test Label");
   });
@@ -59,8 +50,8 @@ describe("Combobox", () => {
   it("should render multiple values when options are clicked", async () => {
     renderCombobox({ multiple: true });
     await user.click(screen.getByTestId("combobox-btn"));
-    await user.click(screen.getByText("Test Label"));
-    await user.click(screen.getByText("Test Label 2"));
+    await user.click(screen.getByTestId("test_value"));
+    await user.click(screen.getByTestId("test_value_2"));
 
     const multipleDivs = screen.getAllByTestId("multiple-div");
 
@@ -74,16 +65,16 @@ describe("Combobox", () => {
       ])
     );
     expect(multipleDivs.map((div) => div.textContent)).toEqual(
-      expect.arrayContaining(["test_value", "test_value_2"])
+      expect.arrayContaining(["Test Label", "Test Label 2"])
     );
   });
 
   it("should unselect option", async () => {
     renderCombobox();
     await user.click(screen.getByTestId("combobox-btn"));
-    await user.click(screen.getByText("Test Label"));
+    await user.click(screen.getByTestId("test_value"));
     await user.click(screen.getByTestId("combobox-btn"));
-    await user.click(screen.getByText("Test Label"));
+    await user.click(screen.getByTestId("test_value"));
 
     expect(screen.getByTestId("combobox-btn")).toHaveTextContent(
       "Selecione um test name"
@@ -93,12 +84,12 @@ describe("Combobox", () => {
   it("should unselect option when multiple", async () => {
     renderCombobox({ multiple: true });
     await user.click(screen.getByTestId("combobox-btn"));
-    await user.click(screen.getByText("Test Label"));
-    await user.click(screen.getByText("Test Label 2"));
-    await user.click(screen.getByText("Test Label"));
+    await user.click(screen.getByTestId("test_value"));
+    await user.click(screen.getByTestId("test_value_2"));
+    await user.click(screen.getByTestId("test_value"));
 
     expect(screen.getByTestId("combobox-btn")).toHaveTextContent(
-      "test_value_2"
+      "Test Label 2"
     );
   });
 });

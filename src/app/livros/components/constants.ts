@@ -179,19 +179,16 @@ export const filterOptions = [
   {
     name: "Testamento",
     key: "testament",
-    compare: "value",
     filters: testamentFilters,
   },
   {
     name: "Grupo",
     key: "group",
-    compare: "label",
     filters: groupFilters,
   },
   {
     name: "Autor",
     key: "author",
-    compare: "label",
     filters: authorFilters,
   },
 ];
