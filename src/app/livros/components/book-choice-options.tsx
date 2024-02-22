@@ -1,11 +1,12 @@
 import { Dices, Pointer, TreeDeciduous } from "lucide-react";
-import ChooseBookDialog from "./dialog/choose-book-dialog";
+import { ChooseBookDialog } from "./dialog/choose-book-dialog";
+import { RandomBookDialog } from "./dialog/random-book-dialog";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { BookContextProvider } from "@/context/book-context";
 import DialogOverlayCustom from "@/components/ui/dialog-overlay-custom";
 
-const BookChoiceOptions = () => {
+export const BookChoiceOptions = () => {
   const options = [
     {
       icon: <TreeDeciduous className="size-12" />,
@@ -34,7 +35,7 @@ const BookChoiceOptions = () => {
         "Vamos adicionar um pouco de emoção bíblica à sua vida! Pressione o botão 'Aleatório' e deixe a sorte (ou providência divina?) decidir qual parte da Bíblia você irá explorar hoje. Quem sabe que tesouros espirituais você encontrará nesta aventura aleatória!",
       button: {
         title: "Aleatório",
-        dialog: <ChooseBookDialog />,
+        dialog: <RandomBookDialog />,
       },
     },
   ];
@@ -59,11 +60,13 @@ const BookChoiceOptions = () => {
               {option.button.title}
             </Button>
           </DialogTrigger>
-          <DialogOverlayCustom>{option.button.dialog}</DialogOverlayCustom>
+          <DialogOverlayCustom>
+            <DialogContent className="max-w-[600px] min-h-[224px] max-h-[90%] overflow-y-auto">
+              {option.button.dialog}
+            </DialogContent>
+          </DialogOverlayCustom>
         </Dialog>
       </BookContextProvider>
     </div>
   ));
 };
-
-export default BookChoiceOptions;

@@ -150,7 +150,7 @@ export const authorFilters = [
     label: "Lucas",
   },
   {
-    value: "Joao",
+    value: "joao",
     label: "João",
   },
   {

@@ -1,5 +1,5 @@
 import NavBar from "@/components/navbar";
-import BookChoiceOptions from "./components/book-choice-options";
+import { BookChoiceOptions } from "./components/book-choice-options";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 

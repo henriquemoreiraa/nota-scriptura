@@ -1,5 +1,6 @@
 "use client";
 
+import { Book } from "@/types/books";
 import { UseMutateAsyncFunction, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import {
@@ -20,13 +21,15 @@ type BookFiltersType = {
 type BookContextType = {
   bookFilters: MutableRefObject<BookFiltersType | undefined>;
   getBooksFn: UseMutateAsyncFunction<void, Error, void, unknown>;
-  books: any[];
+  books: Book[];
+  status: "error" | "idle" | "pending" | "success";
 };
 
 export const BookContext = createContext<BookContextType>({
   bookFilters: { current: {} },
   getBooksFn: async () => new Promise(() => {}),
   books: [],
+  status: "idle",
 });
 
 export const useBooksContext = () => useContext(BookContext);
@@ -46,7 +49,11 @@ export function BookContextProvider({ children }: { children: ReactNode }) {
     return data;
   };
 
-  const { mutateAsync: getBooksFn, data: books } = useMutation({
+  const {
+    mutateAsync: getBooksFn,
+    data: books,
+    status,
+  } = useMutation({
     mutationFn: getBooks,
   });
 
@@ -55,8 +62,9 @@ export function BookContextProvider({ children }: { children: ReactNode }) {
       bookFilters,
       getBooksFn,
       books,
+      status,
     }),
-    [bookFilters, books]
+    [bookFilters, books, status]
   );
 
   return <BookContext.Provider value={value}>{children}</BookContext.Provider>;

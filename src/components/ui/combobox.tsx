@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -17,26 +17,32 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { Loading } from "../loading";
 
 type Options = {
   value: string | number;
   label: string;
 }[];
 
-interface ComboboxProps {
+interface ComboboxProps
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onSelect"> {
   options?: Options;
-  name: string;
   multiple?: boolean;
+  placeholder: string;
+  isLoading?: boolean;
   onSelect?: (values: string[], valuesObj: Options) => void;
-  onFocus?: () => void;
 }
 
 export const Combobox = ({
   options,
   name,
   multiple,
+  value,
   onSelect,
-  onFocus,
+  placeholder,
+  disabled,
+  isLoading,
+  ...props
 }: ComboboxProps) => {
   const [open, setOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<Options>([]);
@@ -59,9 +65,17 @@ export const Combobox = ({
         );
       }
 
-      return selectedOptions[0]?.label || `Selecione um ${name.toLowerCase()}`;
+      if (disabled && isLoading) {
+        return <Loading />;
+      }
+
+      if (disabled && !value) {
+        return `Nenhum ${name?.toLowerCase()} encontrado.`;
+      }
+
+      return selectedOptions[0]?.label || placeholder;
     };
-  }, [selectedOptions]);
+  }, [selectedOptions, isLoading]);
 
   const onSelectValue = useMemo(() => {
     return (currentValue: string) => {
@@ -74,7 +88,7 @@ export const Combobox = ({
 
       let newSelectedOptions: Options = [];
 
-      if (valueExists) {
+      if (valueExists && !disabled) {
         newSelectedOptions = selectedOptions.filter(
           (option) => option.value.toString() !== currentValue
         );
@@ -100,6 +114,12 @@ export const Combobox = ({
     };
   }, [selectedOptions, options]);
 
+  useEffect(() => {
+    if (value) {
+      onSelectValue(value?.toString());
+    }
+  }, [value]);
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -109,7 +129,8 @@ export const Combobox = ({
           aria-expanded={open}
           className="justify-between w-full h-max"
           data-testid="combobox-btn"
-          onFocus={onFocus}
+          disabled={disabled}
+          {...props}
         >
           {renderSelectedValue()}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -117,15 +138,13 @@ export const Combobox = ({
       </PopoverTrigger>
       <PopoverContent className="p-0">
         <Command className="max-h-[245px]">
-          <CommandInput placeholder={`Pesquise um ${name.toLowerCase()}`} />
-          <CommandEmpty>Nenhum {name.toLowerCase()} encontrado.</CommandEmpty>
+          <CommandInput placeholder={`Pesquise um ${name?.toLowerCase()}`} />
+          <CommandEmpty>Nenhum {name?.toLowerCase()} encontrado.</CommandEmpty>
           <CommandGroup className="overflow-y-auto">
-            {!options ? (
-              <div className="flex justify-center items-center p-5">
-                <Loader2 className="size-4 animate-spin text-zinc-400" />
-              </div>
+            {isLoading ? (
+              <Loading />
             ) : (
-              options.map((d) => (
+              options?.map((d) => (
                 <CommandItem
                   data-testid={d.value}
                   key={d.value}
