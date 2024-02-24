@@ -19,17 +19,21 @@ import {
 import { cn } from "@/lib/utils";
 import { Loading } from "../loading";
 
-type Options = {
+export type Options = {
   value: string | number;
   label: string;
 }[];
 
 interface ComboboxProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onSelect"> {
+  extends Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    "onSelect" | "value"
+  > {
   options?: Options;
   multiple?: boolean;
   placeholder?: string;
   isLoading?: boolean;
+  values?: Options;
   onSelect?: (values: string[], valuesObj: Options) => void;
 }
 
@@ -37,7 +41,7 @@ export const Combobox = ({
   options,
   name,
   multiple,
-  value,
+  values,
   onSelect,
   placeholder,
   disabled,
@@ -69,7 +73,7 @@ export const Combobox = ({
         return <Loading />;
       }
 
-      if (disabled && !value) {
+      if (disabled && !values) {
         return `Nenhum ${name?.toLowerCase()} encontrado.`;
       }
 
@@ -115,10 +119,10 @@ export const Combobox = ({
   }, [selectedOptions, options]);
 
   useEffect(() => {
-    if (value) {
-      onSelectValue(value?.toString());
+    if (values) {
+      setSelectedOptions(values);
     }
-  }, [value]);
+  }, []);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

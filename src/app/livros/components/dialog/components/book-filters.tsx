@@ -14,15 +14,13 @@ export const BookFilters = () => {
         options={option.filters}
         name={option.name}
         placeholder={`Selecione ${option.name.toLowerCase()}`}
-        onSelect={(values, valuesObj) => {
+        onSelect={(_, valuesObj) => {
           bookFilters.current = {
             ...bookFilters.current,
-            [option.key]:
-              option.key === "testament"
-                ? values
-                : valuesObj.map((option) => option.label),
+            [option.key]: valuesObj,
           };
         }}
+        values={bookFilters.current?.[option.key]}
         multiple
       />
     </div>

@@ -35,9 +35,9 @@ export const ChooseBookContent = () => {
         </DialogDescription>
       </DialogHeader>
       <TabsBookFilters />
-      <div>
-        <SeparatorTitle>Livro</SeparatorTitle>
-        <DialogOverlayCustom>
+      <DialogOverlayCustom>
+        <div>
+          <SeparatorTitle>Livro</SeparatorTitle>
           <Combobox
             name="livro"
             options={createOptions({ arr: books })}
@@ -46,8 +46,8 @@ export const ChooseBookContent = () => {
             isLoading={status === "pending"}
             placeholder="Selecione um livro"
           />
-        </DialogOverlayCustom>
-      </div>
+        </div>
+      </DialogOverlayCustom>
       <DialogFooter>
         <Button
           variant="blue"

@@ -1,5 +1,6 @@
 "use client";
 
+import { Options } from "@/components/ui/combobox";
 import { Book } from "@/types/books";
 import { UseMutateAsyncFunction, useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -13,9 +14,9 @@ import {
 } from "react";
 
 type BookFiltersType = {
-  testament?: string[];
-  group?: string[];
-  author?: string[];
+  testament?: Options;
+  group?: Options;
+  author?: Options;
 };
 
 type BookContextType = {
@@ -40,10 +41,17 @@ export function BookContextProvider({ children }: { children: ReactNode }) {
   const getBooks = async () => {
     const { data } = await axios.get(`/api/books/`, {
       params: {
-        author: bookFilters.current?.author?.join(",") || undefined,
+        author:
+          bookFilters.current?.author?.map((a) => a.label).join(",") ||
+          undefined,
         testament:
-          bookFilters.current?.testament?.join(",").toUpperCase() || undefined,
-        group: bookFilters.current?.group?.join(",") || undefined,
+          bookFilters.current?.testament
+            ?.map((t) => t.value)
+            .join(",")
+            .toUpperCase() || undefined,
+        group:
+          bookFilters.current?.group?.map((g) => g.label).join(",") ||
+          undefined,
       },
     });
     return data;

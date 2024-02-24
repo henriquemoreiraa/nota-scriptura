@@ -175,7 +175,16 @@ export const authorFilters = [
   },
 ];
 
-export const filterOptions = [
+type FilterOptionsType = {
+  name: string;
+  key: "testament" | "group" | "author";
+  filters: {
+    value: string;
+    label: string;
+  }[];
+}[];
+
+export const filterOptions: FilterOptionsType = [
   {
     name: "Testamento",
     key: "testament",
