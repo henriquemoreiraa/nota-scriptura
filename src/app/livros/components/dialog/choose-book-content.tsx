@@ -14,11 +14,18 @@ import { useBooksContext } from "@/context/book-context";
 import { createOptions } from "@/utils/create-options";
 import DialogOverlayCustom from "@/components/ui/dialog-overlay-custom";
 import { TabsBookFilters } from "./components/tabs-book-filters";
+import { ConfirmBook } from "./components/confirm-book";
+import { useCustomSearchParams } from "@/hooks/use-set-search-params";
 
-export const ChooseBookDialog = () => {
+export const ChooseBookContent = () => {
   const { getBooksFn, books, status } = useBooksContext();
+  const { createSearchParams, searchParams } = useCustomSearchParams();
 
-  return (
+  const book = books?.find(
+    (book) => book.id.toString() === searchParams.get("book_id")
+  );
+
+  return searchParams.get("dialog_step") !== "confirm" ? (
     <>
       <DialogHeader>
         <DialogTitle>Selecione um livro abaixo</DialogTitle>
@@ -33,6 +40,7 @@ export const ChooseBookDialog = () => {
           <Combobox
             name="livro"
             options={createOptions({ arr: books })}
+            onSelect={(values) => createSearchParams("book_id", values[0])}
             onFocus={() => getBooksFn()}
             isLoading={status === "pending"}
             placeholder="Selecione um livro"
@@ -40,10 +48,18 @@ export const ChooseBookDialog = () => {
         </DialogOverlayCustom>
       </div>
       <DialogFooter>
-        <Button variant="blue" disabled>
-          Confirmar
+        <Button
+          variant="blue"
+          onClick={() => createSearchParams("dialog_step", "confirm")}
+          disabled={!searchParams.get("book_id")}
+        >
+          Continuar
         </Button>
       </DialogFooter>
     </>
+  ) : (
+    <ConfirmBook.Root>
+      <ConfirmBook.Name>{book?.name}</ConfirmBook.Name>
+    </ConfirmBook.Root>
   );
 };

@@ -1,10 +1,10 @@
 import { Dices, Pointer, TreeDeciduous } from "lucide-react";
-import { ChooseBookDialog } from "./dialog/choose-book-dialog";
-import { RandomBookDialog } from "./dialog/random-book-dialog";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { ChooseBookContent } from "./dialog/choose-book-content";
+import { RandomBookContent } from "./dialog/random-book-content";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { BookContextProvider } from "@/context/book-context";
 import DialogOverlayCustom from "@/components/ui/dialog-overlay-custom";
+import { BookDialogTrigger } from "./dialog/book-dialog-trigger";
 
 export const BookChoiceOptions = () => {
   const options = [
@@ -15,7 +15,7 @@ export const BookChoiceOptions = () => {
         "Prepare-se para voltar às origens! Pressione este botão para começar sua jornada bíblica desde o início dos tempos, onde tudo começou. Do Éden às grandes histórias de fé, o Gênesis é o ponto de partida para uma aventura espiritual inesquecível!",
       button: {
         title: "Começo",
-        dialog: <ChooseBookDialog />,
+        dialog: <ChooseBookContent />,
       },
     },
     {
@@ -25,7 +25,7 @@ export const BookChoiceOptions = () => {
         "Seletor de livros ativado! Escolha sabiamente, como se estivesse escolhendo seu próximo livro de cabeceira. Navegue, explore e selecione o livro que mais combina com o seu humor espiritual, curiosidade bíblica ou oque você sentir certo!",
       button: {
         title: "Escolher",
-        dialog: <ChooseBookDialog />,
+        dialog: <ChooseBookContent />,
       },
     },
     {
@@ -35,7 +35,7 @@ export const BookChoiceOptions = () => {
         "Vamos adicionar um pouco de emoção bíblica à sua vida! Pressione o botão 'Aleatório' e deixe a sorte (ou providência divina?) decidir qual parte da Bíblia você irá explorar hoje. Quem sabe que tesouros espirituais você encontrará nesta aventura aleatória!",
       button: {
         title: "Aleatório",
-        dialog: <RandomBookDialog />,
+        dialog: <RandomBookContent />,
       },
     },
   ];
@@ -52,14 +52,7 @@ export const BookChoiceOptions = () => {
       </div>
       <BookContextProvider>
         <Dialog>
-          <DialogTrigger asChild>
-            <Button
-              variant="secondary"
-              className="w-full group-hover:bg-blue-500 group-hover:text-white group-hover:font-semibold transition-all duration-200"
-            >
-              {option.button.title}
-            </Button>
-          </DialogTrigger>
+          <BookDialogTrigger>{option.button.title}</BookDialogTrigger>
           <DialogOverlayCustom>
             <DialogContent className="max-w-[600px] min-h-[224px] max-h-[90%] overflow-y-auto">
               {option.button.dialog}

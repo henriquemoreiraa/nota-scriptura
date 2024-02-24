@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { Toast, useToast } from "./use-toast";
 
 interface useToastEffectProps extends Toast {
-  status: "error" | "success" | "pending";
-  pendingDescription: string;
-  errorDescription: string;
+  status: "error" | "success" | "pending" | "idle";
+  pendingDescription?: string;
+  errorDescription?: string;
 }
 
 function useToastStatus({
@@ -18,7 +18,7 @@ function useToastStatus({
   useEffect(() => {
     if (status === "pending") {
       toast({
-        title: "Aguarde um momento!",
+        title: "Aguarde um momento.",
         description: pendingDescription,
         ...props,
       });

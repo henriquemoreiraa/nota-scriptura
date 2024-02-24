@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useMemo } from "react";
 import { NotionLink, NotionLinkPlaceHolder } from "./notion-link";
 import axios, { AxiosError } from "axios";
 
@@ -35,17 +34,10 @@ export const NotionIntegration = () => {
     queryFn: () => getNotionAccessToken(router, code),
   });
 
-  const toastConfig = useMemo(
-    () => ({
-      pendingDescription: "Aguarde enquanto integramos ao Notion.",
-      errorDescription: "Erro ao tentar definir o token de acesso do Notion.",
-    }),
-    []
-  );
-
   useToastStatus({
     status,
-    ...toastConfig,
+    pendingDescription: "Aguarde enquanto integramos ao Notion.",
+    errorDescription: "Erro ao tentar definir o token de acesso do Notion.",
   });
 
   return status === "pending" ? <NotionLinkPlaceHolder /> : <NotionLink />;

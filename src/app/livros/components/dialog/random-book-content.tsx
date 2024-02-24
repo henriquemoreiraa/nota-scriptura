@@ -15,19 +15,13 @@ import DialogOverlayCustom from "@/components/ui/dialog-overlay-custom";
 import { TabsBookFilters } from "./components/tabs-book-filters";
 import { Dices } from "lucide-react";
 import { GenerateRandomBook } from "./components/generate-random-book";
-import { ConfirmBook } from "./components/confirm-book";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useCustomSearchParams } from "@/hooks/use-set-search-params";
 
-export const RandomBookDialog = () => {
+export const RandomBookContent = () => {
   const { books } = useBooksContext();
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  const { createSearchParams, searchParams } = useCustomSearchParams();
 
-  return searchParams.get("dialog_step") === "confirm" ? (
-    <ConfirmBook>
-      <GenerateRandomBook />
-    </ConfirmBook>
-  ) : (
+  return searchParams.get("dialog_step") !== "confirm" ? (
     <>
       <DialogHeader>
         <DialogTitle>Gere um livro aleatório abaixo</DialogTitle>
@@ -46,12 +40,16 @@ export const RandomBookDialog = () => {
               placeholder="Gere um livro"
               disabled
             />
-            <Button onClick={() => router.push("/livros/?dialog_step=confirm")}>
+            <Button
+              onClick={() => createSearchParams("dialog_step", "confirm")}
+            >
               <Dices />
             </Button>
           </div>
         </DialogOverlayCustom>
       </div>
     </>
+  ) : (
+    <GenerateRandomBook />
   );
 };

@@ -2,6 +2,7 @@ import NavBar from "@/components/navbar";
 import { BookChoiceOptions } from "./components/book-choice-options";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Suspense } from "react";
 
 function Page() {
   return (
@@ -25,7 +26,9 @@ function Page() {
           Antes de iniciar, vamos começar escolhendo um livro.
         </p>
         <div className="flex flex-row flex-wrap justify-center gap-8">
-          <BookChoiceOptions />
+          <Suspense>
+            <BookChoiceOptions />
+          </Suspense>
         </div>
       </main>
     </>
