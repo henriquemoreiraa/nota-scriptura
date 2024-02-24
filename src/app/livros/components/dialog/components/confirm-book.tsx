@@ -31,15 +31,17 @@ const ConfirmBookRoot = ({ children }: ConfirmBookProps) => {
       </DialogHeader>
       {children}
       <DialogFooter className="w-full">
-        <Button
-          onClick={() => {
-            deleteSearchParams("book_id");
-            createSearchParams("dialog_step", "filters");
-          }}
-          variant="link"
-        >
-          Voltar
-        </Button>
+        {searchParams.get("dialog_step") && (
+          <Button
+            onClick={() => {
+              deleteSearchParams("book_id");
+              createSearchParams("dialog_step", "filters");
+            }}
+            variant="link"
+          >
+            Voltar
+          </Button>
+        )}
         {bookId && (
           <NextLinkButton href={`/ler/?book=${bookId}`} variant="blue">
             Confirmar

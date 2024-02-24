@@ -5,6 +5,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { BookContextProvider } from "@/context/book-context";
 import DialogOverlayCustom from "@/components/ui/dialog-overlay-custom";
 import { BookDialogTrigger } from "./dialog/book-dialog-trigger";
+import { GenesisBookContent } from "./dialog/genesis-book-content";
 
 export const BookChoiceOptions = () => {
   const options = [
@@ -15,7 +16,7 @@ export const BookChoiceOptions = () => {
         "Prepare-se para voltar às origens! Pressione este botão para começar sua jornada bíblica desde o início dos tempos, onde tudo começou. Do Éden às grandes histórias de fé, o Gênesis é o ponto de partida para uma aventura espiritual inesquecível!",
       button: {
         title: "Começo",
-        dialog: <ChooseBookContent />,
+        dialog: <GenesisBookContent />,
       },
     },
     {

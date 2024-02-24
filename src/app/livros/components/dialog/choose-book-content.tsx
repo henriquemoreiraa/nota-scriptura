@@ -16,6 +16,7 @@ import DialogOverlayCustom from "@/components/ui/dialog-overlay-custom";
 import { TabsBookFilters } from "./components/tabs-book-filters";
 import { ConfirmBook } from "./components/confirm-book";
 import { useCustomSearchParams } from "@/hooks/use-set-search-params";
+import { Loading } from "@/components/loading";
 
 export const ChooseBookContent = () => {
   const { getBooksFn, books, status } = useBooksContext();
@@ -59,7 +60,7 @@ export const ChooseBookContent = () => {
     </>
   ) : (
     <ConfirmBook.Root>
-      <ConfirmBook.Name>{book?.name}</ConfirmBook.Name>
+      <ConfirmBook.Name>{book?.name || <Loading />}</ConfirmBook.Name>
     </ConfirmBook.Root>
   );
 };

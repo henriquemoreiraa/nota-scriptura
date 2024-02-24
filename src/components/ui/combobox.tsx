@@ -28,7 +28,7 @@ interface ComboboxProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onSelect"> {
   options?: Options;
   multiple?: boolean;
-  placeholder: string;
+  placeholder?: string;
   isLoading?: boolean;
   onSelect?: (values: string[], valuesObj: Options) => void;
 }
