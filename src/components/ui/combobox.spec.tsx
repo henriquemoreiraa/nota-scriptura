@@ -1,10 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { Combobox } from "./combobox";
+import { Combobox, Options } from "./combobox";
 import userEvent from "@testing-library/user-event";
 
 interface ComboboxTestProps {
   multiple?: boolean;
+  values?: Options;
+  disabled?: boolean;
 }
 
 describe("Combobox", () => {
@@ -18,12 +20,13 @@ describe("Combobox", () => {
           { value: "test_value_2", label: "Test Label 2" },
         ]}
         name="Test Name"
+        placeholder="Selecione um test name"
         {...props}
       />
     );
   };
 
-  it("should render with default value name", () => {
+  it("should render with placeholder", () => {
     renderCombobox();
     expect(screen.getByTestId("combobox-btn")).toHaveTextContent(
       "Selecione um test name"
@@ -91,5 +94,10 @@ describe("Combobox", () => {
     expect(screen.getByTestId("combobox-btn")).toHaveTextContent(
       "Test Label 2"
     );
+  });
+
+  it("should render with default value", async () => {
+    renderCombobox({ values: [{ value: "test_value", label: "Test Label" }] });
+    expect(screen.getByTestId("combobox-btn")).toHaveTextContent("Test Label");
   });
 });

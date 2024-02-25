@@ -44,7 +44,6 @@ export const Combobox = ({
   values,
   onSelect,
   placeholder,
-  disabled,
   isLoading,
   ...props
 }: ComboboxProps) => {
@@ -69,14 +68,6 @@ export const Combobox = ({
         );
       }
 
-      if (disabled && isLoading) {
-        return <Loading />;
-      }
-
-      if (disabled && !values) {
-        return `Nenhum ${name?.toLowerCase()} encontrado.`;
-      }
-
       return selectedOptions[0]?.label || placeholder;
     };
   }, [selectedOptions, isLoading]);
@@ -93,7 +84,7 @@ export const Combobox = ({
 
       let newSelectedOptions: Options = [];
 
-      if (valueExists && !disabled) {
+      if (valueExists) {
         newSelectedOptions = selectedOptions.filter(
           (option) => option.value !== currentValue
         );
@@ -134,7 +125,6 @@ export const Combobox = ({
           aria-expanded={open}
           className="justify-between w-full h-max"
           data-testid="combobox-btn"
-          disabled={disabled}
           {...props}
         >
           {renderSelectedValue()}
@@ -147,7 +137,9 @@ export const Combobox = ({
           <CommandEmpty>Nenhum {name?.toLowerCase()} encontrado.</CommandEmpty>
           <CommandGroup className="overflow-y-auto">
             {isLoading ? (
-              <Loading />
+              <div className="p-5">
+                <Loading />
+              </div>
             ) : (
               options?.map((d) => (
                 <CommandItem

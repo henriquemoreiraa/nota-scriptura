@@ -59,7 +59,7 @@ describe("NotionIntegration", () => {
   it("should render pending toast", async () => {
     renderNotionIntegration(<Toaster />);
 
-    expect(await screen.findByText("Aguarde um momento!")).toBeInTheDocument();
+    expect(await screen.findByText("Aguarde um momento.")).toBeInTheDocument();
     expect(
       await screen.findByText("Aguarde enquanto integramos ao Notion.")
     ).toBeInTheDocument();
