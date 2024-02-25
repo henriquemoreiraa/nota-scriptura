@@ -9,7 +9,7 @@ export const GenesisBookContent = () => {
 
   useEffect(() => {
     if (!searchParams.get("dialog_step")) {
-      createSearchParams("book_id", "3");
+      createSearchParams("book_name", "gênesis");
     }
   }, [searchParams]);
 

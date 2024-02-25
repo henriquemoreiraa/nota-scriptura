@@ -19,7 +19,7 @@ interface ConfirmBookProps {
 const ConfirmBookRoot = ({ children }: ConfirmBookProps) => {
   const { createSearchParams, deleteSearchParams, searchParams } =
     useCustomSearchParams();
-  const bookId = searchParams.get("book_id");
+  const bookName = searchParams.get("book_name");
 
   return (
     <div className="flex flex-col justify-between gap-8">
@@ -34,7 +34,7 @@ const ConfirmBookRoot = ({ children }: ConfirmBookProps) => {
         {searchParams.get("dialog_step") && (
           <Button
             onClick={() => {
-              deleteSearchParams("book_id");
+              deleteSearchParams("book_name");
               createSearchParams("dialog_step", "filters");
             }}
             variant="link"
@@ -42,8 +42,8 @@ const ConfirmBookRoot = ({ children }: ConfirmBookProps) => {
             Voltar
           </Button>
         )}
-        {bookId && (
-          <NextLinkButton href={`/ler/?book=${bookId}`} variant="blue">
+        {bookName && (
+          <NextLinkButton href={`/ler/?book=${bookName}`} variant="blue">
             Confirmar
           </NextLinkButton>
         )}

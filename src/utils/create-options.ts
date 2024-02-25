@@ -10,7 +10,7 @@ export const createOptions = ({
   label = "name",
 }: createOptionsParams) => {
   return arr?.map((d) => ({
-    value: d[value],
+    value: d[value].toString().toLowerCase(),
     label: d[label],
   }));
 };

@@ -22,7 +22,7 @@ export const GenerateRandomBook = () => {
   const { deleteSearchParams, createSearchParams, searchParams } =
     useCustomSearchParams();
 
-  const bookId = searchParams.get("book_id");
+  const bookName = searchParams.get("book_name");
 
   const book = useMemo(() => {
     return books?.[Math.floor(Math.random() * books.length)];
@@ -37,7 +37,7 @@ export const GenerateRandomBook = () => {
     if (books) {
       const timer = setTimeout(() => {
         if (isBookGenerationComplete) {
-          createSearchParams("book_id", book.id.toString());
+          createSearchParams("book_name", book.id.toString());
           return;
         }
 
@@ -80,7 +80,7 @@ export const GenerateRandomBook = () => {
           )}
         </ConfirmBook.Name>
         <Progress
-          data-visible={bookId ? null : true}
+          data-visible={bookName ? null : true}
           value={progressPercentage}
           className="w-[60%] h-2 mt-3 data-visible"
         />
@@ -88,12 +88,12 @@ export const GenerateRandomBook = () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                data-visible={bookId}
+                data-visible={bookName}
                 variant="ghost"
                 className="opacity-0 invisible data-[visible]:opacity-100 transition-all duration-75 data-[visible]:visible"
                 onClick={() => {
                   setTimeElapsed(0);
-                  deleteSearchParams("book_id");
+                  deleteSearchParams("book_name");
                 }}
               >
                 <Dices />

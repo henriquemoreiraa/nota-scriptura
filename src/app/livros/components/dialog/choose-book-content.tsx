@@ -23,7 +23,8 @@ export const ChooseBookContent = () => {
   const { createSearchParams, searchParams } = useCustomSearchParams();
 
   const book = books?.find(
-    (book) => book.id.toString() === searchParams.get("book_id")
+    (book) =>
+      book.name.toString().toLowerCase() === searchParams.get("book_name")
   );
 
   return searchParams.get("dialog_step") !== "confirm" ? (
@@ -40,8 +41,12 @@ export const ChooseBookContent = () => {
           <SeparatorTitle>Livro</SeparatorTitle>
           <Combobox
             name="livro"
-            options={createOptions({ arr: books })}
-            onSelect={(values) => createSearchParams("book_id", values[0])}
+            options={createOptions({
+              arr: books,
+              value: "name",
+              label: "name",
+            })}
+            onSelect={(values) => createSearchParams("book_name", values[0])}
             onFocus={() => getBooksFn()}
             isLoading={status === "pending"}
             placeholder="Selecione um livro"
@@ -52,7 +57,7 @@ export const ChooseBookContent = () => {
         <Button
           variant="blue"
           onClick={() => createSearchParams("dialog_step", "confirm")}
-          disabled={!searchParams.get("book_id")}
+          disabled={!searchParams.get("book_name")}
         >
           Continuar
         </Button>

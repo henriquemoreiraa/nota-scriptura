@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
+import { Check, ChevronsUpDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 import { Loading } from "../loading";
 
 export type Options = {
-  value: string | number;
+  value: string;
   label: string;
 }[];
 
@@ -84,17 +84,18 @@ export const Combobox = ({
   const onSelectValue = useMemo(() => {
     return (currentValue: string) => {
       const valueExists = selectedOptions.find(
-        (option) => option.value.toString() === currentValue
+        (option) => option.value === currentValue
       );
       const selectedOption = options?.find(
-        (option) => option.value.toString() === currentValue
+        (option) => option.value === currentValue
       );
+      console.log(options, currentValue);
 
       let newSelectedOptions: Options = [];
 
       if (valueExists && !disabled) {
         newSelectedOptions = selectedOptions.filter(
-          (option) => option.value.toString() !== currentValue
+          (option) => option.value !== currentValue
         );
       } else {
         if (selectedOption) {
@@ -107,7 +108,7 @@ export const Combobox = ({
       setSelectedOptions(newSelectedOptions);
       if (onSelect) {
         onSelect(
-          newSelectedOptions.map((option) => option.value.toString()),
+          newSelectedOptions.map((option) => option.value),
           newSelectedOptions
         );
       }
@@ -152,7 +153,7 @@ export const Combobox = ({
                 <CommandItem
                   data-testid={d.value}
                   key={d.value}
-                  value={d.value.toString()}
+                  value={d.value}
                   onSelect={onSelectValue}
                 >
                   <Check
