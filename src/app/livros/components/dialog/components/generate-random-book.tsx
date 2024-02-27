@@ -37,7 +37,7 @@ export const GenerateRandomBook = () => {
     if (books) {
       const timer = setTimeout(() => {
         if (isBookGenerationComplete) {
-          createSearchParams("book_name", book.id.toString());
+          createSearchParams("book_name", book.name.toString());
           return;
         }
 
@@ -88,6 +88,7 @@ export const GenerateRandomBook = () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
+                data-testid="generate-another-book-btn"
                 data-visible={bookName}
                 variant="ghost"
                 className="opacity-0 invisible data-[visible]:opacity-100 transition-all duration-75 data-[visible]:visible"
