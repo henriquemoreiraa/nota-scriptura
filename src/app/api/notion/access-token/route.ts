@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
 
   if (!code) {
-    errorResponse({
+    return errorResponse({
       message: "Missing 'code' parameter.",
       status: 400,
     });
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   const redirectUri = process.env.OAUTH_REDIRECT_URI;
 
   if (!clientId || !clientSecret || !redirectUri) {
-    errorResponse({
+    return errorResponse({
       message: "Missing OAuth environment variables",
       status: 500,
     });
@@ -54,13 +54,26 @@ export async function GET(request: NextRequest) {
       user_id: data.owner.user.id,
     };
 
-    const session = await prisma.session.findUnique({
-      where: { user_id: dataSession.user_id },
+    if (!data.duplicated_template_id) {
+      return errorResponse({
+        message: "Template not provided",
+        status: 400,
+      });
+    }
+
+    const dbSession = await prisma.session.findUnique({
+      where: {
+        user_id: dataSession.user_id,
+        AND: { workspace_id: dataSession.workspace_id },
+      },
     });
 
-    if (session) {
+    if (dbSession) {
       await prisma.session.update({
-        data: dataSession,
+        data: {
+          ...dataSession,
+          duplicated_template_id: dbSession.duplicated_template_id,
+        },
         where: { user_id: dataSession.user_id },
       });
     } else {

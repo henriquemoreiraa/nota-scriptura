@@ -1,9 +1,11 @@
+"use client";
+
 import NotionIcon from "@/components/icons/notion";
 import { AnchorLinkButton } from "@/components/ui/link-button";
 import { Loader2 } from "lucide-react";
 
 export const NotionLink = () => {
-  const authUrl = process.env.NOTION_AUTH_URL;
+  const authUrl = process.env.NEXT_PUBLIC_NOTION_AUTH_URL;
 
   return (
     <AnchorLinkButton

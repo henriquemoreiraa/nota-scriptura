@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { Toast, useToast } from "./use-toast";
+import { Status } from "@/types/api";
 
 interface useToastEffectProps extends Toast {
-  status: "error" | "success" | "pending" | "idle";
+  status: Status;
   pendingDescription?: string;
   errorDescription?: string;
 }

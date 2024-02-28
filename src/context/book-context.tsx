@@ -1,6 +1,7 @@
 "use client";
 
 import { Options } from "@/components/ui/combobox";
+import { Status } from "@/types/api";
 import { Book } from "@/types/books";
 import { UseMutateAsyncFunction, useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -23,7 +24,7 @@ type BookContextType = {
   bookFilters: MutableRefObject<BookFiltersType | undefined>;
   getBooksFn: UseMutateAsyncFunction<void, Error, void, unknown>;
   books: Book[];
-  status: "error" | "idle" | "pending" | "success";
+  status: Status;
 };
 
 export const BookContext = createContext<BookContextType>({

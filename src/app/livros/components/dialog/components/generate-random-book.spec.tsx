@@ -3,6 +3,7 @@ import { GenerateRandomBook } from "./generate-random-book";
 import { BookContext } from "@/context/book-context";
 import { describe, expect, it, vitest } from "vitest";
 import { Dialog } from "@/components/ui/dialog";
+import { Status } from "@/types/api";
 
 vitest.mock("next/navigation", () => ({
   ...vitest.importActual("next/navigation"),
@@ -16,7 +17,7 @@ vitest.mock("next/navigation", () => ({
 }));
 
 interface BookContextValue {
-  status?: "idle" | "error" | "pending" | "success";
+  status?: Status;
   books?: { name: string }[];
 }
 

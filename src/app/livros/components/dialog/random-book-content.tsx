@@ -18,7 +18,6 @@ import { GenerateRandomBook } from "./components/generate-random-book";
 import { useCustomSearchParams } from "@/hooks/use-set-search-params";
 
 export const RandomBookContent = () => {
-  const { books } = useBooksContext();
   const { createSearchParams, searchParams } = useCustomSearchParams();
 
   return searchParams.get("dialog_step") !== "confirm" ? (
@@ -32,21 +31,13 @@ export const RandomBookContent = () => {
       <TabsBookFilters />
       <div>
         <SeparatorTitle>Livro</SeparatorTitle>
-        <DialogOverlayCustom>
-          <div className="flex gap-3 items-center">
-            <Combobox
-              name="livro"
-              options={createOptions({ arr: books })}
-              placeholder="Gere um livro"
-              disabled
-            />
-            <Button
-              onClick={() => createSearchParams("dialog_step", "confirm")}
-            >
-              <Dices />
-            </Button>
-          </div>
-        </DialogOverlayCustom>
+        <Button
+          className="w-full flex gap-2"
+          variant="outline"
+          onClick={() => createSearchParams("dialog_step", "confirm")}
+        >
+          <Dices /> Gerar livro aleatório
+        </Button>
       </div>
     </>
   ) : (

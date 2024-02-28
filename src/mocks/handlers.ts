@@ -11,4 +11,9 @@ export const handlers = {
       status: 500,
     });
   }),
+  getAccessTokenTemplateError: http.get("/api/notion/access-token/", () => {
+    return new HttpResponse("Template not provided", {
+      status: 400,
+    });
+  }),
 };

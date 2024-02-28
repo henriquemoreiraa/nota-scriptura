@@ -14,7 +14,7 @@ import { useBooksContext } from "@/context/book-context";
 import { createOptions } from "@/utils/create-options";
 import DialogOverlayCustom from "@/components/ui/dialog-overlay-custom";
 import { TabsBookFilters } from "./components/tabs-book-filters";
-import { ConfirmBook } from "./components/confirm-book";
+import { ConfirmBook } from "./components/confirm-book/";
 import { useCustomSearchParams } from "@/hooks/use-set-search-params";
 import { Loading } from "@/components/loading";
 

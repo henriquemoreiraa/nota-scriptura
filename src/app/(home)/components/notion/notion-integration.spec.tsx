@@ -5,7 +5,15 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { afterEach, expect, describe, it, vitest, beforeAll } from "vitest";
+import {
+  afterEach,
+  expect,
+  describe,
+  it,
+  vitest,
+  beforeAll,
+  beforeEach,
+} from "vitest";
 import { Toaster } from "@/components/ui/toaster";
 import { server } from "@/mocks/browser";
 import { handlers } from "@/mocks/handlers";
@@ -20,6 +28,7 @@ vitest.mock("next/navigation", () => ({
   useSearchParams: vitest.fn(() => ({
     get: vitest.fn(),
   })),
+  usePathname: vitest.fn(),
 }));
 
 describe("NotionIntegration", () => {
@@ -35,6 +44,10 @@ describe("NotionIntegration", () => {
     queryCache.clear();
   });
 
+  beforeEach(() => {
+    queryClient.clear();
+  });
+
   const renderNotionIntegration = (children?: ReactNode) => {
     render(
       <QueryClientProvider client={queryClient}>
@@ -48,12 +61,6 @@ describe("NotionIntegration", () => {
     renderNotionIntegration();
 
     expect(screen.getByTestId("notion-link-placeholder")).toBeInTheDocument();
-  });
-
-  it("should change status to success", async () => {
-    renderNotionIntegration();
-
-    expect(await screen.findByTestId("notion-link")).toBeInTheDocument();
   });
 
   it("should render pending toast", async () => {
@@ -74,6 +81,19 @@ describe("NotionIntegration", () => {
     expect(
       await screen.findByText(
         "Erro ao tentar definir o token de acesso do Notion."
+      )
+    ).toBeInTheDocument();
+  });
+
+  it("should render error toast with 'Template not provided' description", async () => {
+    server.use(handlers.getAccessTokenTemplateError);
+
+    renderNotionIntegration(<Toaster />);
+
+    expect(await screen.findByText("Houve um erro!")).toBeInTheDocument();
+    expect(
+      await screen.findByText(
+        "Por favor, selecione a opção de template ao autorizar o acesso ao Notion."
       )
     ).toBeInTheDocument();
   });

@@ -1,17 +1,13 @@
-import { Suspense } from "react";
-import { NotionIntegration } from "./components/notion/notion-integration";
 import { ArrowRight } from "lucide-react";
-import { SearchParamsProp } from "@/types/pages";
 import Reading from "@/components/illustrations/reading";
 import Link from "next/link";
-import {
-  NotionLink,
-  NotionLinkPlaceHolder,
-} from "./components/notion/notion-link";
 import NavBar from "@/components/navbar";
 import Logo from "@/components/icons/logo";
+import { Notion } from "./components/notion/notion";
+import { Suspense } from "react";
+import { NotionLinkPlaceHolder } from "./components/notion/notion-link";
 
-export default function Home({ searchParams }: SearchParamsProp) {
+export default function Home() {
   return (
     <>
       <NavBar>
@@ -28,13 +24,9 @@ export default function Home({ searchParams }: SearchParamsProp) {
           </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-5 items-center">
-          {searchParams.code ? (
-            <Suspense fallback={<NotionLinkPlaceHolder />}>
-              <NotionIntegration />
-            </Suspense>
-          ) : (
-            <NotionLink />
-          )}
+          <Suspense fallback={<NotionLinkPlaceHolder />}>
+            <Notion />
+          </Suspense>
           <Link
             href="/ler"
             className="flex items-center gap-1 font-normal text-link hover:underline hover:text-link-hover"
