@@ -1,17 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Combobox } from "@/components/ui/combobox";
 import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import { SeparatorTitle } from "@/components/ui/separator-title";
-import { useBooksContext } from "@/context/book-context";
-import { createOptions } from "@/utils/create-options";
-import DialogOverlayCustom from "@/components/ui/dialog-overlay-custom";
 import { TabsBookFilters } from "./components/tabs-book-filters";
 import { Dices } from "lucide-react";
 import { GenerateRandomBook } from "./components/generate-random-book";
@@ -30,7 +25,6 @@ export const RandomBookContent = () => {
       </DialogHeader>
       <TabsBookFilters />
       <div>
-        <SeparatorTitle>Livro</SeparatorTitle>
         <Button
           className="w-full flex gap-2"
           variant="outline"

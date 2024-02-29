@@ -8,7 +8,7 @@ export const useCustomSearchParams = () => {
   const currentSearchParams = new URLSearchParams(searchParams);
 
   const pushSearchParams = (newSearchParams: string) => {
-    return router.push(`${pathname}?${newSearchParams}`);
+    return router.replace(`${pathname}?${newSearchParams}`, { scroll: false });
   };
 
   const createSearchParams = (name: string, value: string) => {
@@ -23,7 +23,7 @@ export const useCustomSearchParams = () => {
       return pushSearchParams(currentSearchParams.toString());
     }
 
-    return pushSearchParams("");
+    window.history.pushState({}, "", `${pathname}`);
   };
 
   return {

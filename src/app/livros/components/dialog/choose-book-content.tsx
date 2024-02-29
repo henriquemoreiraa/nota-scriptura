@@ -35,8 +35,8 @@ export const ChooseBookContent = () => {
           Você pode optar por uma filtragem dos livros ou não.
         </DialogDescription>
       </DialogHeader>
-      <TabsBookFilters />
       <DialogOverlayCustom>
+        <TabsBookFilters />
         <div>
           <SeparatorTitle>Livro</SeparatorTitle>
           <Combobox
