@@ -1,4 +1,3 @@
-import DialogOverlayCustom from "@/components/ui/dialog-overlay-custom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookFilters } from "./book-filters";
 
@@ -13,10 +12,8 @@ export const TabsBookFilters = () => {
         value="filter"
         className="flex flex-col justify-center items-center"
       >
-        <div className="w-full mb-8">
-          <DialogOverlayCustom>
-            <BookFilters />
-          </DialogOverlayCustom>
+        <div className="w-full mb-8 flex flex-col gap-3">
+          <BookFilters />
         </div>
       </TabsContent>
     </Tabs>

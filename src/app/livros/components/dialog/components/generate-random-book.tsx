@@ -69,16 +69,14 @@ export const GenerateRandomBook = () => {
   return (
     <ConfirmBook.Root>
       <div className="flex flex-col items-center">
-        <ConfirmBook.Name>
-          {book ? (
-            <>
-              {book.name}
-              {isBookGenerationComplete ? "!" : "?"}
-            </>
-          ) : (
-            <Loading />
-          )}
-        </ConfirmBook.Name>
+        {book ? (
+          <ConfirmBook.Name>
+            {book.name}
+            {isBookGenerationComplete ? "!" : "?"}
+          </ConfirmBook.Name>
+        ) : (
+          <Loading />
+        )}
         <Progress
           data-visible={bookName ? null : true}
           value={progressPercentage}
