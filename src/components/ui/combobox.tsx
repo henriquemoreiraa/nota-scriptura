@@ -80,7 +80,6 @@ export const Combobox = ({
       const selectedOption = options?.find(
         (option) => option.value === currentValue
       );
-      console.log(options, currentValue);
 
       let newSelectedOptions: Options = [];
 

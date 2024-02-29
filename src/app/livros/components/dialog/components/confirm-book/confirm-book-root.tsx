@@ -26,11 +26,11 @@ export const ConfirmBookRoot = ({ children }: ConfirmBookProps) => {
   const confirm = async () => {
     setStatus("pending");
     try {
-      const bookAbreev = books.find((book) => book.name === bookName)?.abbrev;
-      await axios.post("/api/livros/confirm", {
-        bookAbreev,
+      const book = books.find((book) => book.name === bookName);
+      await axios.post("/api/notion/pages", {
+        book,
       });
-      router.push(`/ler/?book=${bookAbreev}`);
+      router.push(`/ler/?book=${book?.abbrev}`);
     } catch (error) {
       setStatus("error");
     }
