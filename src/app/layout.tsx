@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Footer from "@/components/footer";
-import { Inter } from "next/font/google";
+import { Inter, Work_Sans } from "next/font/google";
 import ReactQueryProvider from "@/provider/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
@@ -15,6 +15,7 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export default function RootLayout({

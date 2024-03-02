@@ -13,7 +13,7 @@ const getNotionAccessToken = async (
 ) => {
   try {
     const response = await axios.get(`/api/notion/access-token/?code=${code}`);
-    router.push("/ler");
+    router.push("/livros");
 
     return response;
   } catch (error) {
@@ -42,9 +42,9 @@ export const NotionIntegration = () => {
     pendingDescription: "Aguarde enquanto integramos ao Notion.",
     errorDescription:
       error?.message === "Template not provided"
-        ? "Por favor, selecione a opção de template ao autorizar o acesso ao Notion."
+        ? "Por favor, selecione a opção de modelo ao autorizar o acesso ao Notion."
         : "Erro ao tentar definir o token de acesso do Notion.",
-    duration: 10000,
+    duration: status === "error" ? 10000 : 3000,
   });
 
   return <NotionLinkPlaceHolder />;

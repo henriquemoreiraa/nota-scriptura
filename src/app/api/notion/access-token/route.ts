@@ -54,19 +54,22 @@ export async function GET(request: NextRequest) {
       user_id: data.owner.user.id,
     };
 
-    if (!data.duplicated_template_id) {
-      return errorResponse({
-        message: "Template not provided",
-        status: 400,
-      });
-    }
-
     const dbSession = await prisma.session.findUnique({
       where: {
         user_id: dataSession.user_id,
         AND: { workspace_id: dataSession.workspace_id },
       },
     });
+
+    if (
+      !dbSession?.duplicated_template_id &&
+      !dataSession.duplicated_template_id
+    ) {
+      return errorResponse({
+        message: "Template not provided",
+        status: 400,
+      });
+    }
 
     if (dbSession) {
       await prisma.session.update({

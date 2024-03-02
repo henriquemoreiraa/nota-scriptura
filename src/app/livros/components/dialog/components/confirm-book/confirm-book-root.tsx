@@ -26,7 +26,7 @@ export const ConfirmBookRoot = ({ children }: ConfirmBookProps) => {
   const confirm = async () => {
     setStatus("pending");
     try {
-      const book = books.find((book) => book.name === bookName);
+      const book = books.find((book) => book.name.toLowerCase() === bookName);
       await axios.post("/api/notion/pages", {
         book,
       });
