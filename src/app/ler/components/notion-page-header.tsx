@@ -4,6 +4,7 @@ import { pageProperties } from "./constants";
 import Image from "next/image";
 import { useQueryClient } from "@tanstack/react-query";
 import { NotionPageType } from "@/types/notion-pages";
+import { NotionPageHeaderLoading } from "./notion-page-header-loading";
 
 export const NotionPageHeader = () => {
   const queryClient = useQueryClient();
@@ -12,7 +13,7 @@ export const NotionPageHeader = () => {
     queryClient.getQueryData(["notion-page"])?.data as NotionPageType;
 
   if (queryState?.status === "pending") {
-    return <div>Carregando...</div>;
+    return <NotionPageHeaderLoading />;
   }
 
   return (

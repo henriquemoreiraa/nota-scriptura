@@ -6,6 +6,7 @@ import StarterKit from "@tiptap/starter-kit";
 
 import { NotionPageContent } from "@/types/notion-pages";
 import { useQueryClient } from "@tanstack/react-query";
+import { NotionEditorLoading } from "./notion-editor-loading";
 
 export const NotionEditor = () => {
   const queryClient = useQueryClient();
@@ -28,7 +29,7 @@ export const NotionEditor = () => {
   );
 
   if (queryState?.status === "pending") {
-    return <div>Carregando...</div>;
+    return <NotionEditorLoading />;
   }
 
   return <EditorContent editor={editor} />;

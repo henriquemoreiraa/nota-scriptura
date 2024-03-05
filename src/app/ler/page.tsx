@@ -27,7 +27,10 @@ function Page() {
           <ResizablePanelGroup direction="horizontal">
             <ResizablePanel>One</ResizablePanel>
             <ResizableHandle />
-            <ResizablePanel className="shadow-md">
+            <ResizablePanel
+              className="shadow-md h-[70vh]"
+              style={{ overflow: "auto" }}
+            >
               <NotionPage />
             </ResizablePanel>
           </ResizablePanelGroup>
