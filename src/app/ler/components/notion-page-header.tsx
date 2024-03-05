@@ -24,13 +24,13 @@ export const NotionPageHeader = ({ query }: NotionPageHeaderProps) => {
         <Image
           src={page?.cover?.external?.url}
           alt="Cover da página"
-          className="object-cover object-center"
+          className="object-cover object-center m-0"
           priority
           fill
           sizes="100vw"
         />
       </div>
-      <div className="prose dark:prose-invert my-5 mx-10 m prose-headings:my-1 prose-p:my-0 prose-headings:text-zinc-800 text-zinc-800">
+      <div className="my-5 mx-10 text-zinc-800">
         <h1>
           {page?.icon?.emoji} {page?.properties?.Livro?.title[0]?.text?.content}
         </h1>
@@ -49,7 +49,7 @@ export const NotionPageHeader = ({ query }: NotionPageHeaderProps) => {
                       <span className="lowercase">
                         {format(
                           value?.last_edited_time,
-                          "d 'de' LLLL 'de' yyyy H':'m",
+                          "d 'de' LLLL 'de' yyyy H':'mm",
                           { locale: ptBR }
                         )}
                       </span>

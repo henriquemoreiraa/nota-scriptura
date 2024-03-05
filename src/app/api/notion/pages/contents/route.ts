@@ -2,8 +2,18 @@ import { errorResponse } from "@/utils/error-responses";
 import { Client } from "@notionhq/client";
 import { NotionToMarkdown } from "notion-to-md";
 import { getDbSessionBotId } from "../../constants";
+import { NextRequest } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const pageId = request.nextUrl.searchParams.get("page_id");
+
+  if (!pageId) {
+    return errorResponse({
+      message: "Page ID is required",
+      status: 400,
+    });
+  }
+
   try {
     const dbSession = await getDbSessionBotId();
 
@@ -20,30 +30,8 @@ export async function GET() {
 
     const n2m = new NotionToMarkdown({ notionClient: notion });
 
-    const { results: blockResults } = await notion.blocks.children.list({
-      block_id: dbSession.duplicated_template_id,
-    });
-
-    const { results: databaseResults } = await notion.databases.query({
-      database_id: blockResults[0].id,
-      sorts: [
-        {
-          property: "Hora da última edição",
-          direction: "descending",
-        },
-      ],
-      page_size: 1,
-    });
-
-    if (!databaseResults.length) {
-      return errorResponse({
-        message: "No books found.",
-        status: 400,
-      });
-    }
-
     const { results: pageResults } = await notion.blocks.children.list({
-      block_id: databaseResults[0].id,
+      block_id: pageId,
     });
 
     const x = await n2m.blocksToMarkdown(pageResults);
