@@ -82,7 +82,6 @@ export async function POST(request: Request) {
           type: "text",
           text: {
             content: `Leituras ${year}`,
-            link: null,
           },
         },
       ],
