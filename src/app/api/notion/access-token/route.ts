@@ -1,4 +1,4 @@
-import { errorResponse } from "@/utils/error-responses";
+import { errorResponse } from "@/utils/api/error-responses";
 import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import { cookies } from "next/headers";

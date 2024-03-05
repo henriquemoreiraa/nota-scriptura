@@ -1,6 +1,6 @@
-import { errorResponse } from "@/utils/error-responses";
+import { errorResponse } from "@/utils/api/error-responses";
+import { getDbSessionBotId } from "@/utils/api/get-db-session";
 import { Client } from "@notionhq/client";
-import { getDbSessionBotId } from "../constants";
 
 export async function GET() {
   try {

@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { errorResponse } from "./utils/error-responses";
+import { errorResponse } from "./utils/api/error-responses";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const botIdExists = request.cookies.get("bot_id")?.value;
   const pathname = request.nextUrl.pathname;
 

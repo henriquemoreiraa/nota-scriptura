@@ -1,4 +1,4 @@
-import { AlignLeft, CaseSensitive, Clock9 } from "lucide-react";
+import { AlignLeft, Clock9 } from "lucide-react";
 
 type PagePropertiesType = {
   [key: string]: {
