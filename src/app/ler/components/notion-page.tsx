@@ -6,7 +6,7 @@ import { NotionEditor } from "./notion-editor";
 import axios from "axios";
 
 export const NotionPage = () => {
-  useQueries({
+  const results = useQueries({
     queries: [
       {
         queryKey: ["notion-page"],
@@ -23,8 +23,8 @@ export const NotionPage = () => {
 
   return (
     <div>
-      <NotionPageHeader />
-      <NotionEditor />
+      <NotionPageHeader query={results[0]} />
+      <NotionEditor query={results[1]} />
     </div>
   );
 };

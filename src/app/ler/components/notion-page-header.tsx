@@ -2,17 +2,19 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { pageProperties } from "./constants";
 import Image from "next/image";
-import { useQueryClient } from "@tanstack/react-query";
+import { UseQueryResult } from "@tanstack/react-query";
 import { NotionPageType } from "@/types/notion-pages";
 import { NotionPageHeaderLoading } from "./notion-page-header-loading";
+import { AxiosResponse } from "axios";
 
-export const NotionPageHeader = () => {
-  const queryClient = useQueryClient();
-  const queryState = queryClient.getQueryState(["notion-page"]);
-  const page = //@ts-ignore
-    queryClient.getQueryData(["notion-page"])?.data as NotionPageType;
+interface NotionPageHeaderProps {
+  query: UseQueryResult<AxiosResponse<any, any>, Error>;
+}
 
-  if (queryState?.status === "pending") {
+export const NotionPageHeader = ({ query }: NotionPageHeaderProps) => {
+  const page: NotionPageType = query.data?.data;
+
+  if (query.status === "pending") {
     return <NotionPageHeaderLoading />;
   }
 
@@ -25,6 +27,7 @@ export const NotionPageHeader = () => {
           className="object-cover object-center"
           priority
           fill
+          sizes="100vw"
         />
       </div>
       <div className="prose dark:prose-invert my-5 mx-10 m prose-headings:my-1 prose-p:my-0 prose-headings:text-zinc-800 text-zinc-800">

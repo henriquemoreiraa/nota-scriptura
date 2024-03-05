@@ -5,20 +5,22 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
 import { NotionPageContent } from "@/types/notion-pages";
-import { useQueryClient } from "@tanstack/react-query";
+import { UseQueryResult } from "@tanstack/react-query";
 import { NotionEditorLoading } from "./notion-editor-loading";
+import { AxiosResponse } from "axios";
 
-export const NotionEditor = () => {
-  const queryClient = useQueryClient();
-  const queryState = queryClient.getQueryState(["notion-page-content"]);
-  const content = //@ts-ignore
-  queryClient.getQueryData(["notion-page-content"])?.data as NotionPageContent;
+interface NotionEditorProps {
+  query: UseQueryResult<AxiosResponse<any, any>, Error>;
+}
+
+export const NotionEditor = ({ query }: NotionEditorProps) => {
+  const content: NotionPageContent = query.data?.data;
 
   const editor = useEditor(
     {
       extensions: [StarterKit],
       content: marked.parse(content?.parent || ""),
-      // onUpdate: ({ editor }) => console.log(editor.getJSON()),
+      onUpdate: ({ editor }) => console.log(editor.getJSON()),
       editorProps: {
         attributes: {
           class: "focus:outline-none mt-10 mx-10",
@@ -28,7 +30,7 @@ export const NotionEditor = () => {
     [content]
   );
 
-  if (queryState?.status === "pending") {
+  if (query?.status === "pending") {
     return <NotionEditorLoading />;
   }
 
