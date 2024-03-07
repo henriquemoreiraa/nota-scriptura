@@ -1,12 +1,7 @@
 import NavBar from "@/components/navbar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  ResizablePanelGroup,
-  ResizableHandle,
-  ResizablePanel,
-} from "@/components/ui/resizable";
-import { NotionPage } from "./components/notion-page";
+import { ResizableContent } from "./components/resizable-content";
 
 function Page() {
   return (
@@ -24,16 +19,7 @@ function Page() {
       </NavBar>
       <main>
         <div className="flex justify-between">
-          <ResizablePanelGroup direction="horizontal">
-            <ResizablePanel>One</ResizablePanel>
-            <ResizableHandle />
-            <ResizablePanel
-              className="shadow-md h-[79vh]"
-              style={{ overflow: "auto" }}
-            >
-              <NotionPage />
-            </ResizablePanel>
-          </ResizablePanelGroup>
+          <ResizableContent />
         </div>
       </main>
     </>

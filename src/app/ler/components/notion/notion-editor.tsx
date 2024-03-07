@@ -10,7 +10,14 @@ import { NotionEditorLoading } from "./notion-editor-loading";
 import { AxiosResponse } from "axios";
 
 interface NotionEditorProps {
-  query: UseMutationResult<AxiosResponse<any, any>, Error, void, unknown>;
+  query: UseMutationResult<
+    AxiosResponse<any, any>,
+    Error,
+    {
+      pageId: string;
+    },
+    unknown
+  >;
 }
 
 export const NotionEditor = ({ query }: NotionEditorProps) => {
@@ -31,7 +38,7 @@ export const NotionEditor = ({ query }: NotionEditorProps) => {
     [content]
   );
 
-  if (query?.status === "pending") {
+  if (query?.status === "pending" || query?.status === "idle") {
     return <NotionEditorLoading />;
   }
 

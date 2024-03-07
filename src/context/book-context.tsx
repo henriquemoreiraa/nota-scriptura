@@ -40,7 +40,7 @@ export function BookContextProvider({ children }: { children: ReactNode }) {
   const bookFilters = useRef<BookFiltersType>();
 
   const getBooks = async () => {
-    const { data } = await axios.get(`/api/books/`, {
+    const { data } = await axios.get(`/api/bible/books/`, {
       params: {
         author:
           bookFilters.current?.author?.map((a) => a.label).join(",") ||

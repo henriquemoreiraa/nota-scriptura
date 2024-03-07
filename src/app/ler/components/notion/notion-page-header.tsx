@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { pageProperties } from "./constants";
+import { pageProperties } from "../constants";
 import Image from "next/image";
 import { UseQueryResult } from "@tanstack/react-query";
 import { NotionPageType } from "@/types/notion-pages";

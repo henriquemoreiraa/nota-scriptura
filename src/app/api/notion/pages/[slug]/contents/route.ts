@@ -1,25 +1,14 @@
 import { errorResponse } from "@/utils/api/error-responses";
 import { Client } from "@notionhq/client";
+import { NotionToMarkdown } from "notion-to-md";
 import { NextRequest } from "next/server";
 import { getDbSessionBotId } from "@/utils/api/get-db-session";
 
-export async function PATCH(request: NextRequest) {
-  const pageId = request.nextUrl.searchParams.get("page_id");
-  const { block } = await request.json();
-
-  if (!pageId) {
-    return errorResponse({
-      message: "Page ID is required",
-      status: 400,
-    });
-  }
-
-  if (!block) {
-    return errorResponse({
-      message: "'block' is missing in the request body.",
-      status: 400,
-    });
-  }
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { slug: string } }
+) {
+  const pageId = params.slug;
 
   try {
     const dbSession = await getDbSessionBotId();
@@ -35,12 +24,15 @@ export async function PATCH(request: NextRequest) {
       auth: dbSession.access_token,
     });
 
-    await notion.blocks.children.append({
+    const n2m = new NotionToMarkdown({ notionClient: notion });
+
+    const { results: pageResults } = await notion.blocks.children.list({
       block_id: pageId,
-      children: [block],
     });
 
-    return new Response("Block appended successfully", { status: 200 });
+    const x = await n2m.blocksToMarkdown(pageResults);
+
+    return Response.json(n2m.toMarkdownString(x), { status: 200 });
   } catch (error) {
     return errorResponse(error as any);
   }
