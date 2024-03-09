@@ -20,6 +20,7 @@ export const ResizableContent = () => {
       Promise.all([
         versesQuery.mutateAsync({
           book: response.data.properties.Abreviação.rich_text[0]?.text?.content,
+          chapter: response.data.properties.Capítulo.number,
         }),
         contentQuery.mutateAsync({ pageId: response.data.id }),
       ]);
@@ -27,11 +28,13 @@ export const ResizableContent = () => {
       return response;
     },
     retry: false,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
   const versesQuery = useMutation({
-    mutationFn: ({ book }: { book: string }) =>
-      axios.get(`/api/bible/verses/nvi/${book}/1`),
+    mutationFn: ({ book, chapter }: { book: string; chapter: number }) =>
+      axios.get(`/api/bible/verses/nvi/${book}/${chapter}`),
     retry: false,
   });
 

@@ -44,21 +44,28 @@ export interface Parent {
 }
 
 export interface Properties {
-  "Hora da última edição": HoraDaltimaEdio;
-  Abreviação: Abreviao;
-  Livro: Livro;
+  "Hora da última edição": LastEditTime;
+  Abreviação: Abbrev;
+  Capítulo: Chapter;
+  Livro: Book;
 }
 
-export interface HoraDaltimaEdio {
+interface LastEditTime {
   id: string;
   type: string;
   last_edited_time: string;
 }
 
-export interface Abreviao {
+interface Abbrev {
   id: string;
   type: string;
   rich_text: RichText[];
+}
+
+interface Chapter {
+  id: string;
+  type: string;
+  number: number;
 }
 
 export interface RichText {
@@ -83,7 +90,7 @@ export interface Annotations {
   color: string;
 }
 
-export interface Livro {
+interface Book {
   id: string;
   type: string;
   title: Title[];

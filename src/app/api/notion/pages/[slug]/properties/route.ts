@@ -8,11 +8,11 @@ export async function PATCH(
   { params }: { params: { slug: string } }
 ) {
   const pageId = params.slug;
-  const { block } = await request.json();
+  const { properties } = await request.json();
 
-  if (!block) {
+  if (!properties) {
     return errorResponse({
-      message: "'block' is missing in the request body.",
+      message: "'properties' is missing in the request body.",
       status: 400,
     });
   }
@@ -31,9 +31,9 @@ export async function PATCH(
       auth: dbSession.access_token,
     });
 
-    await notion.blocks.children.append({
-      block_id: pageId,
-      children: [block],
+    await notion.pages.update({
+      page_id: pageId,
+      properties,
     });
 
     return new Response("Block appended successfully", { status: 200 });

@@ -45,6 +45,7 @@ export const NotionPageHeader = ({ query }: NotionPageHeaderProps) => {
                   <div className="capitalize">
                     {value?.type === "rich_text" &&
                       value?.rich_text[0]?.text?.content}
+                    {value?.type === "number" && value?.number}
                     {value?.type === "last_edited_time" && (
                       <span className="lowercase">
                         {format(

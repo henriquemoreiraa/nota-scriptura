@@ -8,6 +8,7 @@ import { NotionPageContent } from "@/types/notion-pages";
 import { UseMutationResult } from "@tanstack/react-query";
 import { NotionEditorLoading } from "./notion-editor-loading";
 import { AxiosResponse } from "axios";
+import { editorClass } from "../constants";
 
 interface NotionEditorProps {
   query: UseMutationResult<
@@ -30,8 +31,7 @@ export const NotionEditor = ({ query }: NotionEditorProps) => {
       onUpdate: ({ editor }) => console.log(editor.getJSON()),
       editorProps: {
         attributes: {
-          class:
-            "focus:outline-none mt-10 mx-10 prose dark:prose-invert prose-headings:my-1 prose-p:my-0 prose-headings:text-zinc-800 marker:text-zinc-800",
+          class: editorClass,
         },
       },
     },

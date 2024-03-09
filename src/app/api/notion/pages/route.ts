@@ -96,6 +96,9 @@ export async function POST(request: Request) {
         Abreviação: {
           rich_text: {},
         },
+        Capítulo: {
+          number: {},
+        },
         "Hora da última edição": {
           last_edited_time: {},
         },
