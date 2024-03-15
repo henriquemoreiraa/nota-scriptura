@@ -45,6 +45,7 @@ export interface Parent {
 
 export interface Properties {
   "Hora da última edição": LastEditTime;
+  "Versículos Marcados": HighlightedVerses;
   Abreviação: Abbrev;
   Capítulo: Chapter;
   Livro: Book;
@@ -54,6 +55,12 @@ interface LastEditTime {
   id: string;
   type: string;
   last_edited_time: string;
+}
+
+interface HighlightedVerses {
+  id?: string;
+  type?: string;
+  rich_text: RichText[];
 }
 
 interface Abbrev {
@@ -69,16 +76,16 @@ interface Chapter {
 }
 
 export interface RichText {
-  type: string;
+  type?: string;
   text: Text;
-  annotations: Annotations;
-  plain_text: string;
-  href: any;
+  annotations?: Annotations;
+  plain_text?: string;
+  href?: any;
 }
 
 export interface Text {
   content: string;
-  link: any;
+  link?: any;
 }
 
 export interface Annotations {
