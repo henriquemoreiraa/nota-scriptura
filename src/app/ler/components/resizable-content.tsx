@@ -1,7 +1,5 @@
 "use client";
 
-import axios from "axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { NotionPageHeader } from "./notion/notion-page-header";
 import { NotionEditor } from "./notion/notion-editor";
 import {
@@ -10,17 +8,28 @@ import {
   ResizableHandle,
 } from "@/components/ui/resizable";
 import { BibleEditor } from "./bible/bible-editor";
+import { useBible } from "@/hooks/use-bible";
+import { NotionPageType } from "@/types/notion-pages";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import axios, { AxiosResponse } from "axios";
 
 export const ResizableContent = () => {
+  const { versesQuery } = useBible();
+
   const pageQuery = useQuery({
     queryKey: ["notion-page"],
     queryFn: async () => {
-      const response = await axios.get("/api/notion/pages");
+      const response: AxiosResponse<NotionPageType> = await axios.get(
+        "/api/notion/pages"
+      );
 
       Promise.all([
-        versesQuery.mutateAsync({
+        versesQuery?.mutateAsync({
           book: response.data.properties.Abreviação.rich_text[0]?.text?.content,
           chapter: response.data.properties.Capítulo.number,
+          highlighted:
+            response.data.properties["Versículos Marcados"].rich_text[0]?.text
+              ?.content,
         }),
         contentQuery.mutateAsync({ pageId: response.data.id }),
       ]);
@@ -28,14 +37,7 @@ export const ResizableContent = () => {
       return response;
     },
     retry: false,
-    refetchOnWindowFocus: false,
     refetchOnMount: false,
-  });
-
-  const versesQuery = useMutation({
-    mutationFn: ({ book, chapter }: { book: string; chapter: number }) =>
-      axios.get(`/api/bible/verses/nvi/${book}/${chapter}`),
-    retry: false,
   });
 
   const contentQuery = useMutation({
@@ -47,7 +49,7 @@ export const ResizableContent = () => {
   return (
     <ResizablePanelGroup direction="horizontal">
       <ResizablePanel className="h-[79vh]" style={{ overflow: "auto" }}>
-        <BibleEditor query={versesQuery} />
+        <BibleEditor />
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel

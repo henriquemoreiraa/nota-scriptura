@@ -2,6 +2,7 @@ import NavBar from "@/components/navbar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ResizableContent } from "./components/resizable-content";
+import { BibleContextProvider } from "@/context/bible-context";
 
 function Page() {
   return (
@@ -19,7 +20,9 @@ function Page() {
       </NavBar>
       <main>
         <div className="flex justify-between">
-          <ResizableContent />
+          <BibleContextProvider>
+            <ResizableContent />
+          </BibleContextProvider>
         </div>
       </main>
     </>

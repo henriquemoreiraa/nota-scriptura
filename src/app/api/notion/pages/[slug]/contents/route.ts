@@ -43,9 +43,9 @@ export async function PATCH(
   { params }: { params: { slug: string } }
 ) {
   const pageId = params.slug;
-  const { block } = await request.json();
+  const { blocks } = await request.json();
 
-  if (!block) {
+  if (!blocks) {
     return errorResponse({
       message: "'block' is missing in the request body.",
       status: 400,
@@ -68,7 +68,7 @@ export async function PATCH(
 
     await notion.blocks.children.append({
       block_id: pageId,
-      children: [block],
+      children: blocks,
     });
 
     return new Response("Block appended successfully", { status: 200 });

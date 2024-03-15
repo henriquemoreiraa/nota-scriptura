@@ -19,4 +19,8 @@ export interface Chapter {
 export interface Verse {
   number: number;
   text: string;
+  color?: string;
+  chapter: number;
 }
+
+export type SelectedVerseType = Verse & { color?: string };
