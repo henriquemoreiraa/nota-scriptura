@@ -28,7 +28,6 @@ export const NotionEditor = ({ query }: NotionEditorProps) => {
     {
       extensions: [StarterKit],
       content: marked.parse(content?.parent || ""),
-      onUpdate: ({ editor }) => console.log(editor.getJSON()),
       editorProps: {
         attributes: {
           class: editorClass,

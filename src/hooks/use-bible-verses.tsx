@@ -8,7 +8,7 @@ import {
   formatVerseToProperty,
   formatVerseToContent,
   highlightVerses,
-} from "@/app/ler/components/constants";
+} from "@/app/ler/utils/verses";
 
 export const useBibleVerses = ({
   selectedVerses,

@@ -42,7 +42,9 @@ export const BibleVerse = ({
     >
       <PopoverTrigger>
         <button
-          data-selected={typeof isVerseSelected === "string"}
+          data-selected={
+            selectedVerses.find((v) => v.number === verse.number) !== undefined
+          }
           className={`text-start hover:underline data-[selected=true]:underline ${
             isVerseSelected ? "!no-underline" : ""
           }`}
@@ -84,11 +86,11 @@ export const BibleVerse = ({
             </Button>
           </>
         ) : (
-          ["r", "y", "b", "g"].map((color) => (
+          Object.entries(colors).map(([key, value]) => (
             <button
-              className={`${colors[color]} w-6 h-6 rounded-sm m-0 hover:opacity-90`}
+              className={`${value} w-6 h-6 rounded-sm m-0 hover:opacity-90`}
               onClick={() => {
-                handleHighlightVerse(color);
+                handleHighlightVerse(key);
                 createSearchParams("highlight", "create");
               }}
             />

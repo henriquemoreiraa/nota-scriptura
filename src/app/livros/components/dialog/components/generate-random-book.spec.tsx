@@ -40,17 +40,17 @@ describe("GenerateRandomBook", () => {
     );
   };
 
-  it("renders without crashing", () => {
+  it("should render without crashing", () => {
     renderGenerateRandomBook();
   });
 
-  it("displays loading spinner when fetching books", async () => {
+  it("should display loading spinner when fetching books", async () => {
     renderGenerateRandomBook({ status: "pending" });
 
     expect(screen.getByTestId("loading")).toBeInTheDocument();
   });
 
-  it("displays error message when book fetching fails", async () => {
+  it("should display error message when book fetching fails", async () => {
     renderGenerateRandomBook({ status: "error" });
 
     expect(
@@ -60,7 +60,7 @@ describe("GenerateRandomBook", () => {
     ).toBeInTheDocument();
   });
 
-  it("generates a random book and displays its name", async () => {
+  it("should generate a random book and displays its name", async () => {
     renderGenerateRandomBook({
       status: "success",
       books: [{ name: "Book Test" }],

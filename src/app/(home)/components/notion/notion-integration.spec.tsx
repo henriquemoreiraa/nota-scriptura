@@ -93,7 +93,7 @@ describe("NotionIntegration", () => {
     expect(await screen.findByText("Houve um erro!")).toBeInTheDocument();
     expect(
       await screen.findByText(
-        "Por favor, selecione a opção de template ao autorizar o acesso ao Notion."
+        "Por favor, selecione a opção de modelo ao autorizar o acesso ao Notion."
       )
     ).toBeInTheDocument();
   });

@@ -1,6 +1,6 @@
 "use client";
 
-import { highlightVerses } from "@/app/ler/components/constants";
+import { highlightVerses } from "@/app/ler/utils/verses";
 import { Verse } from "@/types/bible";
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
