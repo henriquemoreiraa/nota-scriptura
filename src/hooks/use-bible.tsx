@@ -5,12 +5,14 @@ import { useToast } from "./use-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { Bible, SelectedVerseType } from "@/types/bible";
 import { useState } from "react";
+import { useCustomSearchParams } from "./use-set-search-params";
 
 export const useBible = () => {
   const [selectedVerses, setSelectedVerses] = useState<SelectedVerseType[]>([]);
 
   const { toast } = useToast();
   const { versesQuery, verses } = useBibleContext();
+  const { createSearchParams } = useCustomSearchParams();
 
   const queryClient = useQueryClient();
 
@@ -25,44 +27,47 @@ export const useBible = () => {
       : bible.chapter.number - 1;
 
     try {
-      queryClient.setQueryData(
-        ["notion-page"],
-        (
-          axiosData: AxiosResponse<NotionPageType>
-        ): AxiosResponse<NotionPageType> => {
-          return {
-            ...axiosData,
-            data: {
-              ...axiosData.data,
-              properties: {
-                ...axiosData.data.properties,
-                Capítulo: {
-                  number: chapter,
-                  id: crypto.randomUUID(),
-                  type: "number",
+      if (page) {
+        queryClient.setQueryData(
+          ["notion-page"],
+          (
+            axiosData: AxiosResponse<NotionPageType>
+          ): AxiosResponse<NotionPageType> => {
+            return {
+              ...axiosData,
+              data: {
+                ...axiosData.data,
+                properties: {
+                  ...axiosData.data.properties,
+                  Capítulo: {
+                    number: chapter,
+                    id: crypto.randomUUID(),
+                    type: "number",
+                  },
                 },
               },
-            },
-          };
-        }
-      );
-
-      await Promise.all([
-        versesQuery?.mutateAsync({
-          book: bible.book.abbrev.pt,
-          highlighted:
-            page?.data.properties["Versículos Marcados"].rich_text[0]?.text
-              ?.content,
-          chapter,
-        }),
-        axios.patch(`/api/notion/pages/${page?.data.id}/properties/`, {
+            };
+          }
+        );
+        await axios.patch(`/api/notion/pages/${page?.data.id}/properties/`, {
           properties: {
             Capítulo: {
               number: chapter,
             },
           },
-        }),
-      ]);
+        });
+      } else {
+        localStorage.setItem("chapter", chapter.toString());
+        createSearchParams("chapter", chapter.toString());
+      }
+
+      await versesQuery?.mutateAsync({
+        book: bible.book.abbrev.pt,
+        highlighted:
+          page?.data.properties["Versículos Marcados"].rich_text[0]?.text
+            ?.content,
+        chapter,
+      });
     } catch (error) {
       toast({
         title: "Houve um erro!",

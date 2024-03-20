@@ -42,6 +42,7 @@ export const BibleVerse = ({
     >
       <PopoverTrigger>
         <button
+          disabled={searchParams.get("book") !== undefined}
           data-selected={
             selectedVerses.find((v) => v.number === verse.number) !== undefined
           }

@@ -1,19 +1,13 @@
-"use client";
-
-import { NotionPageHeader } from "./notion/notion-page-header";
-import { NotionEditor } from "./notion/notion-editor";
-import {
-  ResizablePanelGroup,
-  ResizablePanel,
-  ResizableHandle,
-} from "@/components/ui/resizable";
-import { BibleEditor } from "./bible/bible-editor";
+import { NotionPageHeader } from "../notion/notion-page-header";
+import { NotionEditor } from "../notion/notion-editor";
+import { ResizablePanel, ResizableHandle } from "@/components/ui/resizable";
+import { BibleEditor } from "../bible/bible-editor";
 import { useBible } from "@/hooks/use-bible";
 import { NotionPageType } from "@/types/notion-pages";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
 
-export const ResizableContent = () => {
+export const ResizableFirstContent = () => {
   const { versesQuery } = useBible();
 
   const pageQuery = useQuery({
@@ -47,7 +41,7 @@ export const ResizableContent = () => {
   });
 
   return (
-    <ResizablePanelGroup direction="horizontal">
+    <>
       <ResizablePanel className="h-[79vh]" style={{ overflow: "auto" }}>
         <BibleEditor />
       </ResizablePanel>
@@ -59,6 +53,6 @@ export const ResizableContent = () => {
         <NotionPageHeader query={pageQuery} />
         <NotionEditor query={contentQuery} />
       </ResizablePanel>
-    </ResizablePanelGroup>
+    </>
   );
 };

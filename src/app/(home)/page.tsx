@@ -2,7 +2,6 @@ import { ArrowRight } from "lucide-react";
 import Reading from "@/components/illustrations/reading";
 import Link from "next/link";
 import NavBar from "@/components/navbar";
-import Logo from "@/components/icons/logo";
 import { Notion } from "./components/notion/notion";
 import { Suspense } from "react";
 import { NotionLinkPlaceHolder } from "./components/notion/notion-link";
@@ -10,9 +9,7 @@ import { NotionLinkPlaceHolder } from "./components/notion/notion-link";
 export default function Home() {
   return (
     <>
-      <NavBar>
-        <Logo className="size-32 h-auto" />
-      </NavBar>
+      <NavBar />
       <main className="flex flex-col items-center">
         <div className="mb-10">
           <h1 className="text-center text-5xl sm sm:text-7xl font-semibold tracking-tight mb-2">
