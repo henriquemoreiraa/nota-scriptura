@@ -25,7 +25,7 @@ export default function Home() {
             <Notion />
           </Suspense>
           <Link
-            href="/ler"
+            href="/ler/?book=gn"
             className="flex items-center gap-1 font-normal text-link hover:underline hover:text-link-hover"
           >
             Quero apenas ler <ArrowRight className="size-4" />
