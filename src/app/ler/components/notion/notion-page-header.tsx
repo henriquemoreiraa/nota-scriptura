@@ -20,16 +20,18 @@ export const NotionPageHeader = ({ query }: NotionPageHeaderProps) => {
 
   return (
     <>
-      <div className="w-full h-[20vh] relative">
-        <Image
-          src={page?.cover?.external?.url}
-          alt="Cover da página"
-          className="object-cover object-center m-0"
-          priority
-          fill
-          sizes="100vw"
-        />
-      </div>
+      {page?.cover?.external?.url && (
+        <div className="w-full h-[20vh] relative">
+          <Image
+            src={page?.cover?.external?.url}
+            alt="Cover da página"
+            className="object-cover object-center m-0"
+            priority
+            fill
+            sizes="100vw"
+          />
+        </div>
+      )}
       <div className="my-5 mx-10 text-zinc-800">
         <h1>
           {page?.icon?.emoji} {page?.properties?.Livro?.title[0]?.text?.content}

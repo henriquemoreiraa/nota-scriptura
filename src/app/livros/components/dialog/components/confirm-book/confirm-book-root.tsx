@@ -26,11 +26,13 @@ export const ConfirmBookRoot = ({ children }: ConfirmBookProps) => {
   const confirm = async () => {
     setStatus("pending");
     try {
-      const book = books.find((book) => book.name.toLowerCase() === bookName);
+      const book = books.find(
+        (book) => book.name.toLowerCase() === bookName?.toLowerCase()
+      );
       await axios.post("/api/notion/pages", {
         book,
       });
-      router.push(`/ler/?book=${book?.abbrev}`);
+      router.push(`/ler`);
     } catch (error) {
       setStatus("error");
     }

@@ -1,26 +1,19 @@
 import NavBar from "@/components/navbar";
 import { BookChoiceOptions } from "./components/book-choice-options";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
+import { NotionUserName } from "./components/notion-user-name";
+import { UserContextProvider } from "@/context/user-context";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 function Page() {
   return (
-    <>
-      <NavBar className="justify-end">
-        <Avatar className="size-9">
-          <AvatarImage
-            src="https://github.com/henriquemoreiraa.png"
-            alt="henriquemoreiraa"
-          />
-          <AvatarFallback className="bg-transparent">
-            <Skeleton className="h-full w-full rounded-full " />
-          </AvatarFallback>
-        </Avatar>
-      </NavBar>
+    <UserContextProvider>
+      <NavBar />
       <main>
-        <h1 className="text-center text-2xl font-bold">
-          Seja bem-vindo, Henrique
+        <h1 className="text-2xl font-bold flex items-center justify-center gap-1">
+          Seja bem-vindo
+          <NotionUserName />
         </h1>
         <p className="text-center mb-8">
           Antes de iniciar, vamos começar escolhendo um livro.
@@ -30,8 +23,16 @@ function Page() {
             <BookChoiceOptions />
           </Suspense>
         </div>
+        <div className="flex justify-center mt-10 mb-6">
+          <Link
+            href="/ler"
+            className="flex items-center gap-1 font-normal text-link hover:underline hover:text-link-hover"
+          >
+            Continuar do último livro lido <ArrowRight className="size-4" />
+          </Link>
+        </div>
       </main>
-    </>
+    </UserContextProvider>
   );
 }
 

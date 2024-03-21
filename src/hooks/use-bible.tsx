@@ -64,7 +64,7 @@ export const useBible = () => {
       await versesQuery?.mutateAsync({
         book: bible.book.abbrev.pt,
         highlighted:
-          page?.data.properties["Versículos Marcados"].rich_text[0]?.text
+          page?.data.properties["Versículos Marcados"]?.rich_text[0]?.text
             ?.content,
         chapter,
       });

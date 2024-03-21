@@ -29,7 +29,7 @@ export const BookSelect = () => {
   };
 
   useEffect(() => {
-    if (bible) {
+    if (!versesQuery?.isPending && searchParams.get("book") !== "_" && bible) {
       setFirstRender(true);
     }
 

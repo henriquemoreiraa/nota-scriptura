@@ -9,9 +9,7 @@ function Page() {
     <UserContextProvider>
       <Suspense>
         <NavBar>
-          <div className="flex items-center gap-3">
-            <NavBarButtons />
-          </div>
+          <NavBarButtons />
         </NavBar>
         <main>
           <ResizableGroup />

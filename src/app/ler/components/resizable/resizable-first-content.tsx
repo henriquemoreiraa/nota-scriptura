@@ -22,7 +22,7 @@ export const ResizableFirstContent = () => {
           book: response.data.properties.Abreviação.rich_text[0]?.text?.content,
           chapter: response.data.properties.Capítulo.number,
           highlighted:
-            response.data.properties["Versículos Marcados"].rich_text[0]?.text
+            response.data.properties["Versículos Marcados"]?.rich_text[0]?.text
               ?.content,
         }),
         contentQuery.mutateAsync({ pageId: response.data.id }),
@@ -31,7 +31,6 @@ export const ResizableFirstContent = () => {
       return response;
     },
     retry: false,
-    refetchOnMount: false,
   });
 
   const contentQuery = useMutation({

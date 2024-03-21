@@ -72,42 +72,56 @@ export async function POST(request: Request) {
 
     const year = new Date().getFullYear();
 
-    const databaseData = await notion.databases.create({
-      parent: {
-        type: "page_id",
-        page_id: dbSession.duplicated_template_id,
-      },
-      title: [
-        {
-          type: "text",
-          text: {
-            content: `Leituras ${year}`,
+    const { results: blockResults } = await notion.blocks.children.list({
+      block_id: dbSession.duplicated_template_id,
+      page_size: 1,
+    });
+
+    let databaseId = blockResults?.[0]?.id;
+
+    if (!databaseId) {
+      const { id } = await notion.databases.create({
+        parent: {
+          type: "page_id",
+          page_id: dbSession.duplicated_template_id,
+        },
+        title: [
+          {
+            type: "text",
+            text: {
+              content: `Leituras ${year}`,
+            },
+          },
+        ],
+        icon: {
+          type: "emoji",
+          emoji: "📖",
+        },
+        properties: {
+          Livro: {
+            title: {},
+          },
+          Abreviação: {
+            rich_text: {},
+          },
+          Capítulo: {
+            number: {},
+          },
+          "Hora da última edição": {
+            last_edited_time: {},
+          },
+          "Versículos Marcados": {
+            rich_text: {},
           },
         },
-      ],
-      icon: {
-        type: "emoji",
-        emoji: "📖",
-      },
-      properties: {
-        Livro: {
-          title: {},
-        },
-        Abreviação: {
-          rich_text: {},
-        },
-        Capítulo: {
-          number: {},
-        },
-        "Hora da última edição": {
-          last_edited_time: {},
-        },
-      },
-    });
+      });
+
+      databaseId = id;
+    }
 
     await notion.pages.create({
       parent: {
-        database_id: databaseData.id,
+        database_id: databaseId,
       },
       properties: {
         Livro: {
@@ -127,6 +141,9 @@ export async function POST(request: Request) {
               },
             },
           ],
+        },
+        Capítulo: {
+          number: 1,
         },
       },
     });
