@@ -6,6 +6,7 @@ import { useBible } from "@/hooks/use-bible";
 import { NotionPageType } from "@/types/notion-pages";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
+import { PageError } from "../page-error";
 
 export const ResizableFirstContent = () => {
   const { versesQuery } = useBible();
@@ -39,7 +40,9 @@ export const ResizableFirstContent = () => {
     retry: false,
   });
 
-  return (
+  return pageQuery.isError ? (
+    <PageError pageQuery={pageQuery} />
+  ) : (
     <>
       <ResizablePanel className="h-[79vh]" style={{ overflow: "auto" }}>
         <BibleEditor />

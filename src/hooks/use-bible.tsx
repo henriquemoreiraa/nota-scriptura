@@ -6,17 +6,19 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Bible, SelectedVerseType } from "@/types/bible";
 import { useState } from "react";
 import { useCustomSearchParams } from "./use-set-search-params";
+import { Book } from "@/types/books";
 
 export const useBible = () => {
   const [selectedVerses, setSelectedVerses] = useState<SelectedVerseType[]>([]);
 
   const { toast } = useToast();
-  const { versesQuery, verses } = useBibleContext();
+  const { versesQuery, verses, bookQuery } = useBibleContext();
   const { createSearchParams } = useCustomSearchParams();
 
   const queryClient = useQueryClient();
 
   const bible: Bible = versesQuery?.data?.data;
+  const book: Book = bookQuery?.data?.data;
 
   const changeChapter = async ({ isNext }: { isNext: boolean }) => {
     const page: AxiosResponse<NotionPageType> | undefined =
@@ -79,6 +81,7 @@ export const useBible = () => {
 
   return {
     versesQuery,
+    book,
     bible,
     verses,
     selectedVerses,

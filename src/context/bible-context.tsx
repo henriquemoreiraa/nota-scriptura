@@ -25,6 +25,14 @@ type BibleContextType = {
     },
     unknown
   >;
+  bookQuery?: UseMutationResult<
+    AxiosResponse<any, any>,
+    Error,
+    {
+      book: string;
+    },
+    unknown
+  >;
   verses: Verse[];
   setVerses: Dispatch<SetStateAction<Verse[]>>;
 };
@@ -32,6 +40,7 @@ type BibleContextType = {
 export const BibleContext = createContext<BibleContextType>({
   verses: [],
   versesQuery: undefined,
+  bookQuery: undefined,
   setVerses: () => {},
 });
 
@@ -52,6 +61,8 @@ export function BibleContextProvider({ children }: { children: ReactNode }) {
     const response = await axios.get(
       `/api/bible/verses/nvi/${book}/${chapter}`
     );
+
+    bookQuery.mutateAsync({ book });
 
     const responseVerses = highlighted
       ? highlightVerses({
@@ -77,9 +88,16 @@ export function BibleContextProvider({ children }: { children: ReactNode }) {
     retry: false,
   });
 
+  const bookQuery = useMutation({
+    mutationFn: ({ book }: { book: string }) =>
+      axios.get(`/api/bible/books/${book}`),
+    retry: false,
+  });
+
   const value: BibleContextType = useMemo(
     () => ({
       versesQuery,
+      bookQuery,
       verses,
       setVerses,
     }),

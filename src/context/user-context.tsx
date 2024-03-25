@@ -22,6 +22,7 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
   const { data: user, status } = useQuery({
     queryKey: ["user"],
     queryFn: () => axios.get("/api/notion/user"),
+    retry: false,
   });
 
   const value: UserContextType = useMemo(

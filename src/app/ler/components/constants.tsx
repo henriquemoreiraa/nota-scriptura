@@ -1,7 +1,7 @@
 import { AlignLeft, Clock9, HashIcon } from "lucide-react";
 
 export const editorClass =
-  "focus:outline-none mt-10 mx-10 prose dark:prose-invert prose-headings:my-1 prose-p:my-0 prose-headings:text-zinc-800 marker:text-zinc-800 text-zinc-800";
+  "focus:outline-none sm:mt-10 sm:mx-10 mt-5 mx-5 prose dark:prose-invert prose-headings:my-1 prose-p:my-0 prose-headings:text-zinc-800 marker:text-zinc-800 text-zinc-800";
 
 export const pageProperties: {
   [key: string]: {

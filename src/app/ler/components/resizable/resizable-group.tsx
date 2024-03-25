@@ -2,10 +2,10 @@
 
 import { ResizablePanelGroup } from "@/components/ui/resizable";
 import { useCustomSearchParams } from "@/hooks/use-set-search-params";
-import { ResizableFirstContent } from "./resizable-first-content";
-import { ResizableSecondContent } from "./resizable-second-content";
 import { BibleContextProvider } from "@/context/bible-context";
 import { BookContextProvider } from "@/context/book-context";
+import { ResizableFirstContent } from "./resizable-first-content";
+import { ResizableSecondContent } from "./resizable-second-content";
 
 export const ResizableGroup = () => {
   const { searchParams } = useCustomSearchParams();

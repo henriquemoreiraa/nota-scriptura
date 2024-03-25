@@ -10,14 +10,14 @@ import { useBible } from "@/hooks/use-bible";
 export const BibleEditor = () => {
   const {
     bible,
+    book,
     verses,
-    versesQuery,
     selectedVerses,
     changeChapter,
     setSelectedVerses,
   } = useBible();
 
-  if (versesQuery?.status === "pending" || versesQuery?.status === "idle") {
+  if (!bible || !book) {
     return <BibleEditorLoading />;
   }
 
@@ -33,11 +33,12 @@ export const BibleEditor = () => {
           <BibleVerse
             verse={{ ...verse, chapter: bible.chapter.number }}
             setSelectedVerses={setSelectedVerses}
+            key={verse.number}
             selectedVerses={selectedVerses}
           />
         ))}
       </div>
-      <div className="w-full flex justify-between px-10 pt-10">
+      <div className="w-full flex justify-between sm:px-10 sm:pt-10">
         <Button
           variant="link"
           data-chapter={bible.chapter.number - 1 === 0}
@@ -51,7 +52,7 @@ export const BibleEditor = () => {
         </Button>
         <Button
           variant="link"
-          data-chapter={bible.chapter.number + 1 === bible.book.chapters}
+          data-chapter={bible.chapter.number === book.chapters}
           className="data-[chapter=true]:invisible"
           onClick={() => changeChapter({ isNext: true })}
         >

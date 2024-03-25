@@ -13,7 +13,6 @@ export const ResizableSecondContent = () => {
         <BibleEditor />
       </ResizablePanel>
       <ResizableHandle />
-
       <ResizablePanel
         className="shadow-md h-[79vh] flex flex-col items-center"
         style={{ overflow: "auto" }}

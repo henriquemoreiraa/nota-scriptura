@@ -22,7 +22,7 @@ function NavBar({ children, className, ...props }: ComponentProps<"div">) {
         <Logo className="size-32 h-auto" />
         <div className="flex items-center gap-3">
           {children}
-          {status !== "error" && (
+          {status === "success" && (
             <Avatar className="size-9">
               <AvatarImage
                 src={user?.avatar_url as string}
